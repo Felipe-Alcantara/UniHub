@@ -1,0 +1,14 @@
+.DS_Store
+node_modules/
+dist/
+dist-ssr/
+.env
+.env.*
+!.env.example
+__pycache__/
+*.py[cod]
+*.sqlite3
+.venv/
+venv/
+.pytest_cache/
+.coverage
