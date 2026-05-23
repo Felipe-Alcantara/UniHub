@@ -1,2 +1,65 @@
 # UniHub
- Unihub trata-se de um projeto voltado à facilitar a vida acadêmica dos estudantes em um único lugar, de forma prática e intuitiva, visando uma interface moderna, de fácil utilização e organizada. Usando principalmente de um dashboard, os principais avisos e informações do dia serão dispostos para uma maior visibilidade e para criar um maior senso de urgência ao usuário quanto à prazos, além de dispor de eventos importantes como palestras, campeonatos, atividades da faculdade e outros em banners destacados na tela inicial.  Na área do aluno, terão acesso à links relacionados ao curso, como grupos, matérias e informações acadêmicas, junto de um mapa interativo da universidade que mostra cada bloco, sala, andar e facilita a localizar as salas de curso diretamente na instituição.  Além da do aluno, também existirá a área da atlética, dividida entre a parte dos atletas, que terão acesso sobre informações de treino, amistosos, torneios e atividades, enquanto a outra parte será a administrativa, voltada para a organização interna da atlética e a responsabilidade da diretoria.  O projeto procura principalmente centralizar todas as pendências e dores dos alunos num único ponto de fácil acesso, que permita-os terem informações importantes com muito mais facilidade, melhorando sua experiência dentro da faculdade.
+
+UniHub e uma plataforma de hackathon para centralizar a vida academica dos estudantes em um unico lugar. O MVP organiza avisos, prazos, eventos, links do curso, mapa do campus e rotinas da atletica com uma interface moderna e direta.
+
+## Stack
+
+- Frontend: React 18, Vite, Tailwind CSS, Framer Motion e Lucide React
+- Backend: Python, Django, Django REST Framework e SQLite
+- Padroes: estrutura baseada em `felixo-standards`, com componentes reutilizaveis no frontend e backend modular
+
+## Estrutura
+
+```text
+UniHub/
+├── frontend/          # Aplicacao web React
+├── backend/           # API Django + DRF
+├── felixo-standards/  # Referencia de padroes do projeto
+├── IA.md              # Memoria tecnica para retomada com IA
+└── README.md
+```
+
+## Rodando localmente
+
+Frontend:
+
+```bash
+cd frontend
+npm install
+cp .env.example .env
+npm run dev
+```
+
+Backend:
+
+```bash
+cd backend
+python -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+cp .env.example .env
+python manage.py migrate
+python manage.py seed_demo
+python manage.py runserver 8000
+```
+
+URLs principais:
+
+- Frontend: `http://localhost:3000`
+- API health check: `http://localhost:8000/api/health/`
+- Admin Django: `http://localhost:8000/admin/`
+
+## Funcionalidades do MVP
+
+- Dashboard com avisos, agenda, prazos e eventos destacados
+- Area do aluno com links, materias, progresso e pendencias
+- Area da atletica com treinos, amistosos, torneios e tarefas da diretoria
+- Mapa interativo do campus com blocos, salas e informacoes por andar
+- API inicial separada por dominios academico, atletica e campus
+
+## Proximos passos
+
+- Conectar o frontend aos endpoints reais da API
+- Adicionar autenticacao e perfis por tipo de usuario
+- Refinar mapa com dados reais da instituicao
+- Criar testes de fluxo para telas principais
