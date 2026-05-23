@@ -1,0 +1,128 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ========================================
+   UniHub - Global Styles
+   Baseado no Felixo Design System
+   ======================================== */
+
+/* Scroll suave */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 80px;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  background: #050505;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+/* Scrollbar customizada */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(74, 74, 74, 0.8);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(100, 100, 100, 0.9);
+}
+
+/* ========================================
+   Glow Effects - UniHub Indigo
+   ======================================== */
+
+/* Card glow */
+.unihub-card-glow {
+  animation: card-glow-breathe 3s ease-in-out infinite;
+}
+
+.unihub-card-glow-subtle {
+  animation: card-glow-breathe-subtle 3.8s ease-in-out infinite;
+}
+
+/* Text glow */
+.unihub-text-glow {
+  color: #818CF8;
+  animation: title-glow-indigo 3s ease-in-out infinite,
+             text-glow-breathe 3.8s ease-in-out infinite;
+}
+
+/* Glow intensity modifiers */
+.unihub-glow-intensity-25 { --unihub-glow-intensity: 0.25; }
+.unihub-glow-intensity-50 { --unihub-glow-intensity: 0.5; }
+.unihub-glow-intensity-75 { --unihub-glow-intensity: 0.75; }
+.unihub-glow-intensity-100 { --unihub-glow-intensity: 1; }
+
+/* ========================================
+   Keyframes
+   ======================================== */
+
+@keyframes card-glow-breathe {
+  0%, 100% {
+    box-shadow: 0 0 15px rgba(99, 102, 241, 0.15);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(99, 102, 241, 0.35);
+  }
+}
+
+@keyframes card-glow-breathe-subtle {
+  0%, 100% {
+    box-shadow: 0 0 8px rgba(99, 102, 241, 0.1);
+  }
+  50% {
+    box-shadow: 0 0 15px rgba(99, 102, 241, 0.2);
+  }
+}
+
+@keyframes title-glow-indigo {
+  0%, 100% {
+    text-shadow: 0 0 10px rgba(99, 102, 241, 0.3);
+  }
+  50% {
+    text-shadow: 0 0 25px rgba(99, 102, 241, 0.6);
+  }
+}
+
+@keyframes text-glow-breathe {
+  0%, 100% {
+    opacity: 0.9;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+/* ========================================
+   Status Colors
+   ======================================== */
+
+.status-urgent {
+  @apply bg-red-950/80 text-red-300 border border-red-700/60;
+}
+
+.status-warning {
+  @apply bg-yellow-400/20 text-yellow-100 border border-yellow-400/40;
+}
+
+.status-info {
+  @apply bg-blue-950/80 text-blue-300 border border-blue-700/60;
+}
+
+.status-success {
+  @apply bg-green-950/80 text-green-300 border border-green-700/60;
+}
