@@ -1,54 +1,59 @@
-import { NavLink } from 'react-router-dom'
-import { LayoutDashboard, GraduationCap, Trophy, Map } from 'lucide-react'
-
-const navItems = [
-  { to: '/', icon: LayoutDashboard, label: 'Dashboard' },
-  { to: '/aluno', icon: GraduationCap, label: 'Área do Aluno' },
-  { to: '/atletica', icon: Trophy, label: 'Atlética' },
-  { to: '/mapa', icon: Map, label: 'Mapa do Campus' },
-]
+﻿import { NavLink } from 'react-router-dom'
+import { navigationItems } from '../../data/navigation'
+import { useDemo } from '../../context/demo-context'
+import { canAccessBoard } from '../../utils/athletiza-rules'
+import logoSymbol from '../../assets/brand/logo-atletiza-symbol-white.png'
 
 function Sidebar() {
+  const { activeUser } = useDemo()
+  const allowBoard = canAccessBoard(activeUser?.profile)
+
+  const visibleItems = navigationItems.filter((item) => !item.requiresBoard || allowBoard)
+
   return (
     <>
-      <aside className="fixed left-0 top-16 bottom-0 z-30 hidden md:flex w-64 flex-col border-r border-white/10 bg-zinc-950/60 backdrop-blur-md">
-        <nav className="flex flex-col gap-1 p-4 pt-6" aria-label="Navegacao principal">
-          {navItems.map(({ to, icon: Icon, label }) => (
+      <aside className="fixed bottom-0 left-0 top-16 z-30 hidden w-64 border-r border-white/10 bg-[#131518]/80 p-4 md:block">
+        <div className="mb-4 flex items-center gap-2 rounded-2xl border border-white/10 bg-[#1E2127] p-3">
+          <img src={logoSymbol} alt="Simbolo Atletiza" className="h-8 w-8" />
+          <div>
+            <p className="text-sm font-bold text-white">Atletica Godzilla</p>
+            <p className="text-xs text-[#8A919E]">Hub mobile-first</p>
+          </div>
+        </div>
+
+        <nav className="space-y-1" aria-label="Navegacao principal">
+          {visibleItems.map(({ to, label, icon: Icon }) => (
             <NavLink
               key={to}
               to={to}
-              end={to === '/'}
               className={({ isActive }) =>
-                `flex items-center gap-3 px-4 py-2.5 rounded-2xl text-sm font-medium transition-all duration-300 ${
+                `flex items-center gap-3 rounded-2xl px-3 py-2.5 text-sm font-medium transition-colors ${
                   isActive
-                    ? 'bg-indigo-500/15 text-indigo-400 border border-indigo-500/20'
-                    : 'text-zinc-400 hover:text-zinc-50 hover:bg-white/5'
+                    ? 'border border-[#E86A10]/40 bg-[#E86A10]/20 text-[#FFB679]'
+                    : 'text-[#C8CDD6] hover:bg-white/5 hover:text-white'
                 }`
               }
             >
-              <Icon size={18} />
+              <Icon size={16} />
               {label}
             </NavLink>
           ))}
         </nav>
       </aside>
 
-      <nav className="fixed bottom-0 left-0 right-0 z-40 grid grid-cols-4 border-t border-white/10 bg-zinc-950/90 backdrop-blur-md md:hidden" aria-label="Navegacao mobile">
-        {navItems.map(({ to, icon: Icon, label }) => (
+      <nav className="fixed bottom-0 left-0 right-0 z-40 grid grid-cols-5 border-t border-white/10 bg-[#131518]/95 p-1 md:hidden" aria-label="Navegacao mobile">
+        {visibleItems.slice(0, 5).map(({ to, label, icon: Icon }) => (
           <NavLink
             key={to}
             to={to}
-            end={to === '/'}
             className={({ isActive }) =>
-              `flex h-16 flex-col items-center justify-center gap-1 text-[0.68rem] font-medium transition-all duration-300 ${
-                isActive
-                  ? 'text-indigo-300'
-                  : 'text-zinc-400 hover:text-zinc-50 hover:bg-white/5'
+              `flex h-14 flex-col items-center justify-center gap-1 rounded-xl text-[11px] ${
+                isActive ? 'text-[#FFB679]' : 'text-[#8A919E]'
               }`
             }
           >
-            <Icon size={19} />
-            <span className="max-w-full truncate px-1">{label.replace('Área do ', '')}</span>
+            <Icon size={16} />
+            <span>{label}</span>
           </NavLink>
         ))}
       </nav>

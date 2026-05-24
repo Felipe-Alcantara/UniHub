@@ -1,15 +1,15 @@
-import { motion } from 'framer-motion'
+﻿import { motion } from 'framer-motion'
 
 function PageWrapper({ children }) {
   return (
-    <motion.div
-      className="max-w-7xl mx-auto px-4 pb-24 pt-24 sm:px-6 md:pb-14"
+    <motion.main
+      className="mx-auto max-w-7xl px-4 pb-24 pt-20 sm:px-6 md:pb-10"
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.3 }}
+      transition={{ duration: 0.2 }}
     >
       {children}
-    </motion.div>
+    </motion.main>
   )
 }
 

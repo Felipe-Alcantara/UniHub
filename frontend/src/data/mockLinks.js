@@ -1,0 +1,51 @@
+﻿export const importantLinks = [
+  {
+    id: 'link-group-general',
+    title: 'Grupo geral da atletica',
+    category: 'Comunicacao',
+    description: 'Avisos diarios e informacoes oficiais da diretoria.',
+    contact: '(11) 99999-1001',
+  },
+  {
+    id: 'link-group-volei',
+    title: 'Grupo de volei',
+    category: 'Modalidades',
+    description: 'Comunicacao exclusiva para treinos e jogos da equipe.',
+    contact: '(11) 96666-2233',
+  },
+  {
+    id: 'link-instagram',
+    title: 'Instagram oficial',
+    category: 'Midias',
+    description: 'Posts de eventos, seletivas e resultados.',
+    contact: '@atleticagodzilla',
+  },
+  {
+    id: 'link-regulamento',
+    title: 'Regulamento interno',
+    category: 'Documentos',
+    description: 'Regras de participacao e conduta da atletica.',
+    contact: 'Secretaria interna',
+  },
+  {
+    id: 'link-selective-form',
+    title: 'Formulario de seletiva',
+    category: 'Documentos',
+    description: 'Inscricao para modalidades com seletiva.',
+    contact: 'Esportes - (11) 96666-2233',
+  },
+  {
+    id: 'link-products',
+    title: 'Contato de produtos',
+    category: 'Vendas',
+    description: 'Canal para uniformes e itens oficiais.',
+    contact: 'Tesouraria - (11) 95500-8899',
+  },
+  {
+    id: 'link-events',
+    title: 'Contato de eventos',
+    category: 'Eventos',
+    description: 'Informacoes sobre festas e campeonatos.',
+    contact: 'Eventos - (11) 93333-2020',
+  },
+]
