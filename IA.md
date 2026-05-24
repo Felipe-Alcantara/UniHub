@@ -51,6 +51,7 @@ Este arquivo registra a memoria tecnica do projeto para continuidade entre sesso
 - [2026-05-24] `npm test` (frontend): passou (5 testes).
 - [2026-05-24] `npm run build` (frontend): passou.
 - [2026-05-24] `python manage.py test` (backend): falhou por dependencia ausente (`django` nao instalado no ambiente atual).
+- [2026-05-24] Validacao apos integrar `feature/atletiza-mvp` e `feature/landing-autenticada` na `main`: `npm.cmd test` (frontend) passou (18 testes), `npm.cmd run build` passou e `.venv\Scripts\python.exe manage.py test` (backend) passou (5 testes); os merges ocorreram sem conflitos, com a landing autenticada aplicada por ultimo.
 
 ## Evolucao da landing autenticada
 - [2026-05-24] O endpoint `/login` permanece como unica entrada publica; qualquer rota interna sem perfil ativo redireciona para login.
