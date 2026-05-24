@@ -7,4 +7,4 @@ class HealthCheckView(APIView):
     permission_classes = []
 
     def get(self, request):
-        return Response({'status': 'ok', 'service': 'unihub-api'})
+        return Response({'status': 'ok', 'service': 'atletiza-api'})

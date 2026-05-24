@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Install dependencies and start UniHub (backend + frontend)."""
+"""Install dependencies and start ATLETIZA (backend + frontend)."""
 
 import os
 import shutil
@@ -13,7 +13,7 @@ ROOT = Path(__file__).resolve().parent
 BACKEND = ROOT / "backend"
 FRONTEND = ROOT / "frontend"
 VENV = BACKEND / ".venv"
-VENV_PYTHON = VENV / "bin" / "python"
+VENV_PYTHON = VENV / ("Scripts/python.exe" if os.name == "nt" else "bin/python")
 
 
 def run(cmd, cwd=None, env=None):
