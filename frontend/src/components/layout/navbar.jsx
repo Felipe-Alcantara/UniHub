@@ -1,37 +1,40 @@
-import { Link } from 'react-router-dom'
-import { Bell, Search, User } from 'lucide-react'
+﻿import { Link, useLocation } from 'react-router-dom'
+import { LogOut, ShieldCheck } from 'lucide-react'
 import Button from '../ui/button'
+import { useDemo } from '../../context/demo-context'
+import logoHorizontal from '../../assets/brand/logo-atletiza-horizontal-white.png'
 
 function Navbar() {
+  const { activeUser, setActiveProfile } = useDemo()
+  const location = useLocation()
+
   return (
-    <nav className="fixed top-0 left-0 right-0 z-40 border-b border-white/10 bg-zinc-950/80 backdrop-blur-md">
-      <div className="flex items-center justify-between h-16 px-6">
-        <Link to="/" className="flex items-center gap-2">
-          <span className="text-xl font-bold unihub-text-glow">UniHub</span>
+    <header className="fixed left-0 right-0 top-0 z-40 border-b border-white/10 bg-[#131518]/95 backdrop-blur">
+      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6">
+        <Link to="/dashboard" className="flex items-center gap-3" aria-label="Ir para dashboard">
+          <img src={logoHorizontal} alt="Logo Atletiza" className="h-7 w-auto" />
         </Link>
 
-        <div className="hidden md:flex items-center gap-2 flex-1 max-w-md mx-8">
-          <div className="relative w-full">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-500" size={16} />
-            <input
-              type="text"
-              placeholder="Buscar..."
-              className="w-full h-9 pl-9 pr-3 rounded-xl bg-zinc-800/50 border border-white/10 text-sm text-zinc-50 placeholder:text-zinc-500 focus:outline-none focus:border-indigo-500/50 transition-all duration-300"
-            />
+        <div className="flex items-center gap-2">
+          <div className="hidden text-right sm:block">
+            <p className="text-sm font-semibold text-white">{activeUser?.name}</p>
+            <p className="text-xs text-[#8A919E]">{activeUser?.roleLabel}</p>
           </div>
-        </div>
 
-        <div className="flex items-center gap-3">
-          <Button variant="ghost" size="icon" className="relative" aria-label="Notificacoes">
-            <Bell size={18} />
-            <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-red-500 rounded-full" />
-          </Button>
-          <Button variant="ghost" size="icon" aria-label="Perfil">
-            <User size={18} />
+          {location.pathname === '/board' ? (
+            <span className="hidden items-center gap-1 rounded-full border border-[#E86A10]/40 bg-[#E86A10]/20 px-3 py-1 text-xs text-[#FFB679] sm:inline-flex">
+              <ShieldCheck size={14} />
+              Painel demo
+            </span>
+          ) : null}
+
+          <Button variant="ghost" size="sm" onClick={() => setActiveProfile(null)}>
+            <LogOut size={14} />
+            Sair
           </Button>
         </div>
       </div>
-    </nav>
+    </header>
   )
 }
 

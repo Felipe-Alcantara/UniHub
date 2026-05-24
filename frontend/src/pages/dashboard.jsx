@@ -1,135 +1,161 @@
-import { ArrowRight, BellRing, CalendarDays, Clock3 } from 'lucide-react'
+﻿import { Link } from 'react-router-dom'
+import { CalendarDays, Contact2, CreditCard, Megaphone, Swords, UserCheck } from 'lucide-react'
+import { useDemo } from '../context/demo-context'
+import { athleticInfo } from '../data/mockAthletic'
+import { announcements } from '../data/mockAnnouncements'
+import { events, eventTypeLabel } from '../data/mockEvents'
+import { sports } from '../data/mockSports'
+import { buildDashboardSummary, canViewEvent } from '../utils/athletiza-rules'
+import { formatDateTime } from '../utils/date-format'
 import Badge from '../components/ui/badge'
 import Button from '../components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card'
-import DeadlineCard from '../components/parts/deadline-card'
-import EventBanner from '../components/parts/event-banner'
-import StatCard from '../components/parts/stat-card'
-import { dashboardStats, deadlines, events, notices, todaySchedule } from '../data/unihub-data'
+import PageHeader from '../components/ui/page-header'
+import logoHorizontal from '../assets/brand/logo-atletiza-horizontal-white.png'
 
-function Dashboard() {
+function DashboardPage() {
+  const { activeUser, sportMemberships } = useDemo()
+  const summary = buildDashboardSummary(sportMemberships)
+  const nextTrainings = events
+    .filter((event) => event.type === 'training' && canViewEvent(event, sportMemberships))
+    .slice(0, 3)
+
+  const quickCards = [
+    { label: 'Modalidades ativas', value: summary.participantSports, icon: Swords },
+    { label: 'Solicitacoes pendentes', value: summary.pendingSports, icon: UserCheck },
+    { label: 'Eventos visiveis', value: summary.visibleEvents.length, icon: CalendarDays },
+    { label: 'Avisos urgentes', value: announcements.filter((item) => item.priority === 'urgente').length, icon: Megaphone },
+  ]
+
   return (
-    <div className="space-y-8">
-      <section className="grid gap-5 lg:grid-cols-[1.5fr_0.8fr]">
-        <div className="relative overflow-hidden rounded-3xl border border-indigo-500/20 bg-gradient-to-br from-zinc-950 via-zinc-900 to-indigo-950/60 p-6 sm:p-8">
-          <div className="max-w-2xl space-y-4">
-            <Badge variant="default">Hoje no campus</Badge>
-            <div>
-              <h1 className="text-3xl font-bold leading-tight text-zinc-50 sm:text-4xl">
-                Boa noite, Felipe
-              </h1>
-              <p className="mt-2 max-w-xl text-sm leading-relaxed text-zinc-400 sm:text-base">
-                Suas aulas, prazos e eventos mais importantes estao reunidos para o dia render sem correria.
-              </p>
-            </div>
-            <div className="flex flex-wrap gap-3">
-              <Button>
-                Ver agenda <ArrowRight size={16} />
-              </Button>
-              <Button variant="outline">Abrir avisos</Button>
-            </div>
-          </div>
-        </div>
+    <div className="space-y-6">
+      <PageHeader
+        title={`Ola, ${activeUser.name.split(' ')[0]}`}
+        subtitle="Resumo do dia da Atletica Godzilla"
+        rightSlot={<Badge variant="brand">MVP demo</Badge>}
+      />
 
-        <Card glow>
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Clock3 size={18} className="text-amber-300" />
-              Proxima aula
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div>
-              <p className="text-3xl font-bold text-zinc-50">19:00</p>
-              <p className="text-sm text-zinc-400">Projeto Integrador</p>
-            </div>
-            <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-4">
-              <p className="text-sm font-semibold text-zinc-100">Lab Maker</p>
-              <p className="mt-1 text-xs text-zinc-500">Prof. Helena · Bloco M</p>
-            </div>
-          </CardContent>
-        </Card>
+      <section className="rounded-3xl border border-white/10 bg-gradient-to-r from-[#1E2127] via-[#1E2127] to-[#261D18] p-5">
+        <img src={logoHorizontal} alt="Logo Atletiza" className="mb-3 h-8 w-auto" />
+        <h2 className="text-xl font-bold text-white">Tudo da {athleticInfo.name} centralizado</h2>
+        <p className="mt-1 text-sm text-[#C8CDD6]">
+          Treinos, jogos, festas, avisos, links e status da sua carteirinha em um unico fluxo.
+        </p>
+        <div className="mt-4 flex flex-wrap gap-2">
+          <Link to="/calendar">
+            <Button>
+              <CalendarDays size={14} />
+              Ir para agenda
+            </Button>
+          </Link>
+          <Link to="/sports">
+            <Button variant="outline">Modalidades</Button>
+          </Link>
+        </div>
       </section>
 
-      <section className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-        {dashboardStats.map((stat) => (
-          <StatCard key={stat.label} {...stat} />
+      <section className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+        {quickCards.map(({ label, value, icon: Icon }) => (
+          <Card key={label}>
+            <CardContent className="pt-5">
+              <div className="mb-3 inline-flex rounded-xl bg-[#131518] p-2 text-[#FFB679]">
+                <Icon size={16} />
+              </div>
+              <p className="text-2xl font-bold text-white">{value}</p>
+              <p className="text-xs text-[#8A919E]">{label}</p>
+            </CardContent>
+          </Card>
         ))}
       </section>
 
-      <section className="grid gap-5 lg:grid-cols-[1fr_0.8fr]">
-        <div className="space-y-5">
-          <div className="flex items-center justify-between gap-4">
-            <div>
-              <h2 className="text-2xl font-bold text-zinc-50">Prazos urgentes</h2>
-              <p className="text-sm text-zinc-500">Entregas e atividades com maior prioridade.</p>
-            </div>
-            <Button variant="ghost" size="sm">Todos</Button>
-          </div>
-          <div className="space-y-3">
-            {deadlines.map((deadline) => (
-              <DeadlineCard key={deadline.title} {...deadline} />
+      <section className="grid gap-4 lg:grid-cols-[1.15fr_0.85fr]">
+        <Card>
+          <CardHeader>
+            <CardTitle>Proximos treinos e eventos</CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-3">
+            {summary.upcomingEvents.map((event) => (
+              <Link key={event.id} to={`/events/${event.id}`} className="block rounded-2xl border border-white/10 bg-[#131518] p-3 hover:border-[#E86A10]/40">
+                <div className="mb-1 flex items-center justify-between gap-2">
+                  <p className="text-sm font-semibold text-white">{event.title}</p>
+                  <Badge variant="neutral">{eventTypeLabel[event.type]}</Badge>
+                </div>
+                <p className="text-xs text-[#8A919E]">{formatDateTime(event.date, event.startTime, event.endTime)}</p>
+              </Link>
             ))}
-          </div>
-        </div>
+          </CardContent>
+        </Card>
 
         <Card>
           <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <BellRing size={18} className="text-indigo-300" />
-              Avisos
-            </CardTitle>
+            <CardTitle>Mural rapido</CardTitle>
           </CardHeader>
-          <CardContent className="space-y-4">
-            {notices.map((notice) => (
-              <article key={notice.id} className="rounded-2xl border border-white/10 bg-white/[0.03] p-4">
-                <div className="mb-2 flex items-center justify-between gap-3">
-                  <Badge variant={notice.priority}>{notice.category}</Badge>
-                  <span className="text-xs text-zinc-500">{notice.publishedAt}</span>
+          <CardContent className="space-y-3">
+            {announcements.slice(0, 3).map((notice) => (
+              <div key={notice.id} className="rounded-2xl border border-white/10 bg-[#131518] p-3">
+                <div className="mb-1 flex items-center gap-2">
+                  <Badge variant={notice.priority === 'urgente' ? 'urgent' : 'info'}>{notice.priority === 'urgente' ? 'Urgente' : 'Aviso'}</Badge>
                 </div>
-                <h3 className="font-semibold text-zinc-50">{notice.title}</h3>
-                <p className="mt-1 text-sm leading-relaxed text-zinc-400">{notice.body}</p>
-              </article>
+                <p className="text-sm font-semibold text-white">{notice.title}</p>
+                <p className="text-xs text-[#8A919E]">{notice.message}</p>
+              </div>
             ))}
+            <Link to="/bulletin" className="inline-flex text-xs font-semibold text-[#FFB679]">Ver mural completo</Link>
           </CardContent>
         </Card>
       </section>
 
-      <section className="grid gap-5 lg:grid-cols-[0.85fr_1.15fr]">
+      <section className="grid gap-4 lg:grid-cols-3">
         <Card>
           <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <CalendarDays size={18} className="text-emerald-300" />
-              Grade de hoje
-            </CardTitle>
+            <CardTitle className="flex items-center gap-2"><CreditCard size={16} /> Carteirinha</CardTitle>
           </CardHeader>
-          <CardContent className="space-y-3">
-            {todaySchedule.map((item) => (
-              <div key={`${item.time}-${item.subject}`} className="grid grid-cols-[64px_1fr] gap-3 rounded-2xl border border-white/10 bg-white/[0.03] p-3">
-                <span className="font-mono text-sm font-bold text-indigo-300">{item.time}</span>
-                <div>
-                  <p className="text-sm font-semibold text-zinc-100">{item.subject}</p>
-                  <p className="text-xs text-zinc-500">{item.room} · {item.teacher}</p>
-                </div>
-              </div>
-            ))}
+          <CardContent>
+            <p className="text-sm text-[#C8CDD6]">Status: {activeUser.membershipStatus}</p>
+            <p className="text-xs text-[#8A919E]">Modalidades: {sports.filter((sport) => sportMemberships[sport.id] === 'participant').map((sport) => sport.name).join(', ')}</p>
+            <Link to="/card" className="mt-3 inline-flex text-xs font-semibold text-[#FFB679]">Abrir carteirinha</Link>
           </CardContent>
         </Card>
 
-        <div className="space-y-4">
-          <div>
-            <h2 className="text-2xl font-bold text-zinc-50">Eventos em destaque</h2>
-            <p className="text-sm text-zinc-500">Movimentacao academica, esportiva e institucional.</p>
-          </div>
-          <div className="grid gap-4 md:grid-cols-2">
-            {events.map((event) => (
-              <EventBanner key={event.title} {...event} />
-            ))}
-          </div>
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2"><Contact2 size={16} /> Contato rapido</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p className="text-sm font-semibold text-white">{athleticInfo.quickContact.name}</p>
+            <p className="text-xs text-[#8A919E]">{athleticInfo.quickContact.role}</p>
+            <p className="mt-2 text-xs text-[#C8CDD6]">{athleticInfo.quickContact.phone}</p>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <CardTitle>Atalhos</CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-2 text-sm">
+            <Link to="/links" className="block rounded-xl border border-white/10 bg-[#131518] px-3 py-2 text-[#C8CDD6] hover:text-white">Central de links</Link>
+            <Link to="/store" className="block rounded-xl border border-white/10 bg-[#131518] px-3 py-2 text-[#C8CDD6] hover:text-white">Vitrine de produtos</Link>
+            <Link to="/sports" className="block rounded-xl border border-white/10 bg-[#131518] px-3 py-2 text-[#C8CDD6] hover:text-white">Ver modalidades</Link>
+          </CardContent>
+        </Card>
+      </section>
+
+      <section>
+        <h2 className="mb-2 text-lg font-bold text-white">Proximos treinos</h2>
+        <div className="grid gap-3 md:grid-cols-3">
+          {nextTrainings.map((item) => (
+            <Card key={item.id}>
+              <CardContent className="pt-5">
+                <p className="text-sm font-semibold text-white">{item.title}</p>
+                <p className="text-xs text-[#8A919E]">{formatDateTime(item.date, item.startTime, item.endTime)}</p>
+                <p className="mt-2 text-xs text-[#C8CDD6]">{item.location}</p>
+              </CardContent>
+            </Card>
+          ))}
         </div>
       </section>
     </div>
   )
 }
 
-export default Dashboard
+export default DashboardPage
