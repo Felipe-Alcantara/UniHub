@@ -1,6 +1,6 @@
-# UniHub Backend
+# ATLETIZA Backend
 
-API Django + DRF para centralizar avisos, prazos, eventos, mapa do campus e rotinas da atletica.
+API Django + DRF. No MVP ATLETIZA, o backend esta integrado ao frontend para validar o login; modulos academicos/campus antigos permanecem como base legada nao consumida pelo produto ativo.
 
 ## Setup local
 
@@ -37,6 +37,7 @@ backend/
 ## Endpoints iniciais
 
 - `GET /api/health/`
+- `POST /api/v1/auth/login/`
 - `GET /api/v1/academics/notices/`
 - `GET /api/v1/academics/deadlines/`
 - `GET /api/v1/academics/course-links/`
@@ -49,4 +50,15 @@ backend/
 
 ## Dados demo
 
-Use `python manage.py seed_demo` apos as migrations para preencher a API com registros de apresentacao.
+As migracoes gravam as contas ATLETIZA usadas para determinar o ambiente no login:
+
+| Participante / Ambiente | Email | Matrícula | Senha |
+| --- | --- | --- | --- |
+| Gabriel Fernandes | `gabriel@atletiza.com` | `202612345` (mock existente, a confirmar) | `Atletiza@2026` |
+| Júlia de Oliveira Martins | `julia@atletiza.com` | `2025101351` | `Atletiza@2026` |
+| André Gustavo Melo da Silva | `andre@atletiza.com` | `2023121370` | `Atletiza@2026` |
+| Luiz Filipe Silva Rocha | `luiz.filipe@atletiza.com` | `2025101510` | `Atletiza@2026` |
+| Diretoria | `diretoria@exemple.com` | - | `Atletiza@2026` |
+| Admin | `admin@exemple.com` | - | `Atletiza@2026` |
+
+Use `python manage.py seed_demo` apenas para popular os registros legados adicionais da API.
