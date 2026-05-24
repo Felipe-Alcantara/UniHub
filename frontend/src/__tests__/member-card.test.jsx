@@ -20,7 +20,7 @@ describe('member card page', () => {
     cleanup()
   })
 
-  it('renders the demo qr code block on the card', () => {
+  it('renders the detailed member credential and its demo validation block', () => {
     render(
       <MemoryRouter>
         <DemoProvider>
@@ -31,5 +31,8 @@ describe('member card page', () => {
 
     expect(screen.getByRole('img', { name: 'QR code de demonstração' })).toBeInTheDocument()
     expect(screen.getByText('QR de demonstração')).toBeInTheDocument()
+    expect(screen.getByText('Credencial oficial')).toBeInTheDocument()
+    expect(screen.getByText('GDZ-202612345-26')).toBeInTheDocument()
+    expect(screen.getByText('Campus Volta Redonda', { exact: false })).toBeInTheDocument()
   })
 })
