@@ -15,10 +15,8 @@ function DemoProvider({ children }) {
     board: { ...demoUsers.board.sportMemberships },
     admin: { ...demoUsers.admin.sportMemberships },
   })
-  const [presenceConfirmations, setPresenceConfirmations] = useState([])
   const [joinRequests, setJoinRequests] = useState([
-    { id: 'request-1', athleteName: 'Gabriel Fernandes', sportId: 'basquete', status: 'pending' },
-    { id: 'request-2', athleteName: 'Larissa Costa', sportId: 'cheer', status: 'pending' },
+    { id: 'request-1', athleteName: 'Gabriel Fernandes', sportId: 'basquete', status: 'approved' },
   ])
 
   const identityEmail = authenticatedIdentity?.email?.toLowerCase()
@@ -53,8 +51,7 @@ function DemoProvider({ children }) {
 
       setSportMembershipsByProfile((current) => {
         const next = { ...current }
-        const nextStatus = selectedSport.hasTryout ? 'pending' : 'participant'
-        next[activeProfile] = { ...current[activeProfile], [sportId]: nextStatus }
+        next[activeProfile] = { ...current[activeProfile], [sportId]: 'participant' }
         return next
       })
 
@@ -71,46 +68,9 @@ function DemoProvider({ children }) {
               id: `request-${current.length + 1}`,
               athleteName: activeUser.name,
               sportId,
-              status: 'pending',
+              status: 'approved',
             },
           ]
-        })
-      }
-    }
-
-    const confirmPresence = (eventId) => {
-      if (!activeUser) {
-        return
-      }
-
-      setPresenceConfirmations((current) => {
-        const exists = current.some((item) => item.eventId === eventId && item.userId === activeUser.id)
-        if (exists) {
-          return current
-        }
-
-        return [...current, { eventId, userId: activeUser.id, userName: activeUser.name }]
-      })
-    }
-
-    const updateJoinRequest = (requestId, nextStatus) => {
-      setJoinRequests((current) =>
-        current.map((request) =>
-          request.id === requestId ? { ...request, status: nextStatus } : request,
-        ),
-      )
-
-      const target = joinRequests.find((request) => request.id === requestId)
-      if (!target) {
-        return
-      }
-
-      if (target.athleteName === activeUser?.name) {
-        setSportMembershipsByProfile((current) => {
-          const next = { ...current }
-          const mappedStatus = nextStatus === 'approved' ? 'participant' : 'rejected'
-          next.student = { ...current.student, [target.sportId]: mappedStatus }
-          return next
         })
       }
     }
@@ -120,12 +80,9 @@ function DemoProvider({ children }) {
       activeUser,
       sportMemberships: activeUser?.sportMemberships || {},
       joinRequests,
-      presenceConfirmations,
       setActiveProfile,
       setAuthenticatedIdentity,
       joinSport,
-      confirmPresence,
-      updateJoinRequest,
     }
   }, [activeProfile, activeUser, joinRequests, sportMembershipsByProfile])
 

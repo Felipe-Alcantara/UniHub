@@ -41,21 +41,36 @@ export function filterEvents(items, activeFilter, selectedSportId, sportMembersh
     })
 }
 
+export function getEventStartDate(event) {
+  return new Date(`${event.date}T${event.startTime}:00`)
+}
+
+export function getUpcomingParticipantEvents(items, sportMemberships, now = new Date(), limit = 3) {
+  return items
+    .filter((event) => event.sportId && sportMemberships[event.sportId] === 'participant')
+    .filter((event) => getEventStartDate(event) > now)
+    .sort((firstEvent, secondEvent) => getEventStartDate(firstEvent) - getEventStartDate(secondEvent))
+    .slice(0, limit)
+}
+
+export function formatEventCountdown(event, now = new Date()) {
+  const millisecondsUntilEvent = Math.max(0, getEventStartDate(event).getTime() - now.getTime())
+  const totalSeconds = Math.floor(millisecondsUntilEvent / 1000)
+  const days = Math.floor(totalSeconds / 86400)
+  const hours = Math.floor((totalSeconds % 86400) / 3600)
+  const minutes = Math.floor((totalSeconds % 3600) / 60)
+  const seconds = totalSeconds % 60
+
+  return `${days}d ${String(hours).padStart(2, '0')}h ${String(minutes).padStart(2, '0')}m ${String(seconds).padStart(2, '0')}s`
+}
+
 export function getSportAccessState(sport, membershipStatus) {
   if (membershipStatus === 'participant') {
     return 'participant'
   }
 
-  if (membershipStatus === 'pending') {
-    return 'pending'
-  }
-
-  if (membershipStatus === 'rejected') {
-    return 'rejected'
-  }
-
   if (sport.hasTryout) {
-    return 'tryout_required'
+    return 'ready_to_join'
   }
 
   return 'free_entry'
@@ -64,9 +79,7 @@ export function getSportAccessState(sport, membershipStatus) {
 export function getSportEntryActionLabel(accessState) {
   const map = {
     participant: 'Você participa desta modalidade',
-    pending: 'Solicitação enviada',
-    rejected: 'Solicitação rejeitada',
-    tryout_required: 'Solicitar entrada',
+    ready_to_join: 'Entrar na modalidade',
     free_entry: 'Entrar na modalidade',
   }
 
@@ -81,14 +94,10 @@ export function buildDashboardSummary(sportMemberships) {
     visibleEvents,
     upcomingEvents,
     participantSports: getUserSportIdsByStatus(sportMemberships).length,
-    pendingSports: getUserSportIdsByStatus(sportMemberships, 'pending').length,
+    openSports: Object.values(sportMemberships).filter((status) => status !== 'participant').length,
   }
 }
 
 export function canAccessBoard(profile) {
   return profile === 'board' || profile === 'admin'
-}
-
-export function isPresenceConfirmationEnabled(event) {
-  return event.isFree && event.requiresConfirmation
 }

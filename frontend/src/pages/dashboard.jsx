@@ -1,5 +1,5 @@
 ﻿import { Link } from 'react-router-dom'
-import { CalendarDays, Contact2, CreditCard, Megaphone, Swords, UserCheck } from 'lucide-react'
+import { CalendarDays, Contact2, CreditCard, Megaphone, Swords, Trophy } from 'lucide-react'
 import { useDemo } from '../context/demo-context'
 import { athleticInfo } from '../data/mockAthletic'
 import { announcements } from '../data/mockAnnouncements'
@@ -22,7 +22,7 @@ function DashboardPage() {
 
   const quickCards = [
     { label: 'Modalidades ativas', value: summary.participantSports, icon: Swords },
-    { label: 'Solicitações pendentes', value: summary.pendingSports, icon: UserCheck },
+    { label: 'Modalidades abertas', value: summary.openSports, icon: Trophy },
     { label: 'Eventos visíveis', value: summary.visibleEvents.length, icon: CalendarDays },
     { label: 'Avisos urgentes', value: announcements.filter((item) => item.priority === 'urgente').length, icon: Megaphone },
   ]
@@ -32,7 +32,7 @@ function DashboardPage() {
       <PageHeader
         title={`Olá, ${activeUser.name.split(' ')[0]}`}
         subtitle="Resumo do dia da Atlética Godzilla"
-        rightSlot={<Badge variant="brand">MVP de demonstração</Badge>}
+        rightSlot={<Badge variant="brand">Layout demo</Badge>}
       />
 
       <section className="rounded-3xl border border-white/10 bg-gradient-to-r from-[#1E2127] via-[#1E2127] to-[#261D18] p-5">

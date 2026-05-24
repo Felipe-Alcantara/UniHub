@@ -11,11 +11,9 @@
     sportMemberships: {
       volei: 'participant',
       esports: 'participant',
-      basquete: 'pending',
+      basquete: 'participant',
       futsal: 'not_member',
       handebol: 'not_member',
-      bateria: 'not_member',
-      cheer: 'rejected',
     },
   },
   board: {
@@ -33,8 +31,6 @@
       basquete: 'participant',
       esports: 'participant',
       handebol: 'participant',
-      bateria: 'participant',
-      cheer: 'participant',
     },
   },
   admin: {
@@ -52,8 +48,6 @@
       futsal: 'participant',
       basquete: 'participant',
       handebol: 'participant',
-      bateria: 'participant',
-      cheer: 'participant',
     },
   },
 }
@@ -83,6 +77,6 @@ export const participantDemoAccounts = [
 
 export const loginProfiles = [
   { id: 'student', label: 'Aluno', description: 'Consulta treinos, eventos, modalidades e carteirinha.' },
-  { id: 'board', label: 'Diretoria', description: 'Gerencia modalidades, eventos e aprovações.' },
+  { id: 'board', label: 'Diretoria', description: 'Gerencia modalidades, eventos e comunicados.' },
   { id: 'admin', label: 'Dev/Admin', description: 'Acesso geral de demonstração técnica.' },
 ]

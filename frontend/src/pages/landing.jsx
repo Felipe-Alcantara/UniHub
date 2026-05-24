@@ -1,15 +1,16 @@
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import {
   CalendarDays,
   Megaphone,
   Swords,
-  UserCheck,
+  Trophy,
 } from 'lucide-react'
 import { useDemo } from '../context/demo-context'
 import { athleticInfo } from '../data/mockAthletic'
 import { announcements } from '../data/mockAnnouncements'
 import { events, eventTypeLabel } from '../data/mockEvents'
-import { buildDashboardSummary, canViewEvent } from '../utils/athletiza-rules'
+import { buildDashboardSummary, formatEventCountdown, getUpcomingParticipantEvents } from '../utils/athletiza-rules'
 import { formatDateTime } from '../utils/date-format'
 import Badge from '../components/ui/badge'
 import Button from '../components/ui/button'
@@ -19,11 +20,18 @@ import heroAthletes from '../assets/brand/landing-hero-athletes.jpg'
 function LandingPage() {
   const { activeUser, sportMemberships } = useDemo()
   const summary = buildDashboardSummary(sportMemberships)
-  const visibleEvents = events.filter((event) => canViewEvent(event, sportMemberships)).slice(0, 3)
+  const [currentTime, setCurrentTime] = useState(() => new Date())
+  const participantEvents = getUpcomingParticipantEvents(events, sportMemberships, currentTime)
+
+  useEffect(() => {
+    const countdownInterval = window.setInterval(() => setCurrentTime(new Date()), 1000)
+
+    return () => window.clearInterval(countdownInterval)
+  }, [])
 
   return (
     <div className="space-y-6">
-      <section className="relative isolate min-h-[430px] overflow-hidden rounded-lg border border-white/10 sm:min-h-[470px]">
+      <section className="theme-preserve-dark relative isolate min-h-[430px] overflow-hidden rounded-lg border border-white/10 sm:min-h-[470px]">
         <img
           src={heroAthletes}
           alt="Atletas universitários reunidos em quadra antes de uma partida"
@@ -57,7 +65,7 @@ function LandingPage() {
       <section aria-label="Resumo da sua atlética" className="grid grid-cols-2 gap-3 lg:grid-cols-4">
         {[
           { label: 'Modalidades ativas', value: summary.participantSports, icon: Swords },
-          { label: 'Solicitações', value: summary.pendingSports, icon: UserCheck },
+          { label: 'Modalidades abertas', value: summary.openSports, icon: Trophy },
           { label: 'Eventos visíveis', value: summary.visibleEvents.length, icon: CalendarDays },
           { label: 'Avisos urgentes', value: announcements.filter((item) => item.priority === 'urgente').length, icon: Megaphone },
         ].map(({ label, value, icon: Icon }) => (
@@ -74,20 +82,30 @@ function LandingPage() {
       <section className="grid gap-4 lg:grid-cols-[1.1fr_0.9fr]">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between gap-3">
-            <CardTitle>Próximos eventos</CardTitle>
+            <CardTitle>Próximos eventos que você participa</CardTitle>
             <Link to="/calendar" className="text-xs font-semibold text-[#FFB679]">Agenda completa</Link>
           </CardHeader>
           <CardContent className="space-y-3">
-            {visibleEvents.map((event) => (
+            {participantEvents.map((event) => (
               <Link key={event.id} to={`/events/${event.id}`} className="block rounded-lg border border-white/10 bg-[#131518] p-3 transition-colors hover:border-[#E86A10]/40">
                 <div className="mb-1 flex items-center justify-between gap-2">
                   <p className="text-sm font-semibold text-white">{event.title}</p>
                   <Badge variant="neutral">{eventTypeLabel[event.type]}</Badge>
                 </div>
                 <p className="text-xs text-[#8A919E]">{formatDateTime(event.date, event.startTime, event.endTime)}</p>
-                <p className="mt-1 text-xs text-[#C8CDD6]">{event.location}</p>
+                <div className="mt-2 flex flex-wrap items-center justify-between gap-2">
+                  <p className="text-xs text-[#C8CDD6]">{event.location}</p>
+                  <p className="rounded-full border border-[#E86A10]/30 bg-[#E86A10]/10 px-2.5 py-1 font-mono text-xs font-semibold text-[#FFB679]" aria-label={`Contagem regressiva para ${event.title}`}>
+                    {formatEventCountdown(event, currentTime)}
+                  </p>
+                </div>
               </Link>
             ))}
+            {participantEvents.length === 0 ? (
+              <p className="rounded-lg border border-white/10 bg-[#131518] p-3 text-sm text-[#C8CDD6]">
+                Nenhum evento futuro das suas modalidades no momento.
+              </p>
+            ) : null}
           </CardContent>
         </Card>
 

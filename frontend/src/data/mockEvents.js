@@ -26,7 +26,6 @@ export const events = [
     coordinatorName: 'Bruna Silva',
     coordinatorContact: '(24) 93333-2020',
     isFree: false,
-    requiresConfirmation: false,
   },
   {
     id: 'training-volei-1',
@@ -43,7 +42,6 @@ export const events = [
     coordinatorName: 'Ana Souza',
     coordinatorContact: '(24) 96666-2233',
     isFree: true,
-    requiresConfirmation: true,
   },
   {
     id: 'training-futsal-1',
@@ -60,7 +58,6 @@ export const events = [
     coordinatorName: 'Rafael Nunes',
     coordinatorContact: '(24) 97777-1001',
     isFree: true,
-    requiresConfirmation: false,
   },
   {
     id: 'game-futsal-1',
@@ -77,7 +74,6 @@ export const events = [
     coordinatorName: 'Rafael Nunes',
     coordinatorContact: '(24) 97777-1001',
     isFree: true,
-    requiresConfirmation: true,
   },
   {
     id: 'training-esports-1',
@@ -94,7 +90,6 @@ export const events = [
     coordinatorName: 'Thiago Luz',
     coordinatorContact: '(24) 92222-4488',
     isFree: true,
-    requiresConfirmation: false,
   },
   {
     id: 'championship-1',
@@ -111,7 +106,7 @@ export const events = [
     coordinatorName: 'Victor Araújo',
     coordinatorContact: '(24) 95555-8899',
     isFree: true,
-    requiresConfirmation: true,
+    complementaryHours: 20,
   },
   {
     id: 'event-student-1',
@@ -128,24 +123,23 @@ export const events = [
     coordinatorName: 'Davi',
     coordinatorContact: '(24) 98888-2100',
     isFree: true,
-    requiresConfirmation: false,
+    complementaryHours: 5,
   },
   {
     id: 'training-basquete-1',
-    title: 'Treino Basquete - Seletiva',
+    title: 'Treino Basquete - Fundamentos',
     type: 'training',
     date: '2026-05-30',
     startTime: '18:30',
     endTime: '20:00',
     location: 'Quadra 1',
-    status: 'Seletiva',
-    description: 'Treino fechado para candidatos inscritos na seletiva.',
+    status: 'Ativo',
+    description: 'Treino de fundamentos, arremessos e movimentação tática.',
     sportId: 'basquete',
     visibility: 'sport_private',
     coordinatorName: 'Victor Araújo',
     coordinatorContact: '(24) 95555-8899',
     isFree: true,
-    requiresConfirmation: true,
   },
   {
     id: 'championship-esports-1',
@@ -162,7 +156,7 @@ export const events = [
     coordinatorName: 'Thiago Luz',
     coordinatorContact: '(24) 92222-4488',
     isFree: true,
-    requiresConfirmation: false,
+    complementaryHours: 20,
   },
   {
     id: 'training-handebol-1',
@@ -179,7 +173,6 @@ export const events = [
     coordinatorName: 'Helena Cruz',
     coordinatorContact: '(24) 94444-5566',
     isFree: true,
-    requiresConfirmation: false,
   },
 ]
 

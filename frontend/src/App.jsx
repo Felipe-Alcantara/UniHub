@@ -9,6 +9,7 @@ import BoardPanelPage from './pages/board-panel'
 import BulletinPage from './pages/bulletin'
 import CalendarPage from './pages/calendar'
 import EventDetailPage from './pages/event-detail'
+import ComplementaryHoursPage from './pages/complementary-hours'
 import LandingPage from './pages/landing'
 import LinksPage from './pages/links-hub'
 import LoginPage from './pages/login'
@@ -40,6 +41,7 @@ function AuthenticatedLayout() {
               <Route path="/" element={<LandingPage />} />
               <Route path="/dashboard" element={<Navigate to="/" replace />} />
               <Route path="/calendar" element={<CalendarPage />} />
+              <Route path="/hours" element={<ComplementaryHoursPage />} />
               <Route path="/events/:eventId" element={<EventDetailPage />} />
               <Route path="/sports" element={<SportsPage />} />
               <Route path="/sports/:sportId" element={<SportDetailPage />} />

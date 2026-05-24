@@ -6,19 +6,22 @@ import Button from '../components/ui/button'
 import Input from '../components/ui/input'
 import AtletizaLogo from '../components/brand/atletiza-logo'
 import { useDemo } from '../context/demo-context'
-import { apiPost } from '../utils/api'
 
-const demoAccounts = [
-  { email: 'aluno@exemple.com', environment: 'Aluno' },
-  { email: 'diretoria@exemple.com', environment: 'Diretoria' },
-  { email: 'admin@exemple.com', environment: 'Admin' },
+const visibleDemoAccounts = [
+  { email: 'aluno@atletiza.com', environment: 'Aluno', profile: 'student', name: 'Gabriel Fernandes', registration: '202612345' },
+  { email: 'diretoria@exemple.com', environment: 'Diretoria', profile: 'board', name: 'Ana Souza', registration: 'DIR-002' },
+  { email: 'admin@exemple.com', environment: 'Admin', profile: 'admin', name: 'Felipe Admin', registration: 'DEV-001' },
 ]
 
-const cinematicWords = [
-  { text: 'Atletiza:', tone: 'brand' },
-  { text: 'ambientação', suffix: '&', tone: 'soft' },
-  { text: 'conectividade', tone: 'accent' },
+const studentDemoAccounts = [
+  visibleDemoAccounts[0],
+  { email: 'gabriel@atletiza.com', environment: 'Aluno', profile: 'student', name: 'Gabriel Fernandes', registration: '202612345' },
+  { email: 'andre@atletiza.com', environment: 'Aluno', profile: 'student', name: 'André Gustavo Melo da Silva', registration: '2023121370' },
+  { email: 'julia@atletiza.com', environment: 'Aluno', profile: 'student', name: 'Júlia de Oliveira Martins', registration: '2025101351' },
+  { email: 'luiz.filipe@atletiza.com', environment: 'Aluno', profile: 'student', name: 'Luiz Filipe Silva Rocha', registration: '2025101510' },
 ]
+
+const loginAccounts = [...studentDemoAccounts, ...visibleDemoAccounts.slice(1)]
 
 function LoginPage() {
   const [email, setEmail] = useState('')
@@ -35,18 +38,23 @@ function LoginPage() {
     event.preventDefault()
     setError('')
     setInfo('')
-    setIsSubmitting(true)
+    const account = loginAccounts.find((item) => item.email.toLowerCase() === email.trim().toLowerCase())
 
-    try {
-      const user = await apiPost('/auth/login/', { email, password })
-      setAuthenticatedIdentity(user)
-      setActiveProfile(user.profile)
-      navigate('/')
-    } catch (requestError) {
-      setError(requestError.message)
-    } finally {
-      setIsSubmitting(false)
+    if (!account || !password.trim()) {
+      setError('Conta de acesso não encontrada.')
+      return
     }
+
+    setIsSubmitting(true)
+    setAuthenticatedIdentity({
+      email: account.email,
+      name: account.name,
+      profile: account.profile,
+      registration: account.registration,
+      role_label: account.environment,
+    })
+    setActiveProfile(account.profile)
+    navigate('/')
   }
 
   return (
@@ -54,28 +62,27 @@ function LoginPage() {
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(232,106,16,0.13),transparent_34%),radial-gradient(circle_at_58%_52%,rgba(232,106,16,0.075),transparent_48%),linear-gradient(115deg,#07090B_0%,#0A0D10_38%,#14100D_68%,#07090B_100%)]" />
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_78%_48%,rgba(238,243,247,0.05)_0%,rgba(232,106,16,0.052)_32%,rgba(232,106,16,0.018)_52%,transparent_76%),radial-gradient(ellipse_at_102%_52%,rgba(255,123,28,0.085)_0%,rgba(232,106,16,0.042)_34%,transparent_72%)]" />
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_8%_50%,rgba(232,106,16,0.10)_0%,rgba(232,106,16,0.045)_32%,transparent_68%),radial-gradient(circle_at_50%_50%,rgba(238,243,247,0.026)_0%,rgba(232,106,16,0.052)_26%,transparent_62%)]" />
-      <div className="pointer-events-none absolute left-[calc(-1*clamp(1rem,2.8vw,3.5rem)+150px)] top-1/2 hidden w-[min(42vw,760px)] -translate-y-1/2 lg:block">
-        <div className="relative space-y-32 [perspective:900px]">
-          {cinematicWords.map((word, index) => (
-            <motion.p
-              key={word.text}
-              className={`login-cinematic-word whitespace-nowrap uppercase ${
-                word.tone === 'brand'
-                  ? 'mb-16 text-[clamp(3rem,4.9vw,5.9rem)] font-extrabold leading-[0.86] tracking-[-0.055em] text-[#F2F5F8]/[0.34]'
-                  : word.tone === 'soft'
-                    ? 'text-[clamp(2.35rem,3.75vw,4.45rem)] font-semibold leading-[0.94] tracking-[-0.07em] text-[#EEF3F7]/[0.30]'
-                    : 'text-[clamp(2.35rem,3.75vw,4.45rem)] font-semibold leading-[0.94] tracking-[-0.07em] text-[#FF7417]/[0.48]'
-              }`}
-              initial={reduceMotion ? false : { opacity: 0, x: -320, filter: 'blur(24px)' }}
-              animate={reduceMotion ? { opacity: 0.12 } : { opacity: 1, x: 0, filter: 'blur(0px)' }}
-              transition={{ duration: reduceMotion ? 0 : 2.55, delay: reduceMotion ? 0 : 0.18 + index * 1.5, ease: [0.1, 0.78, 0.16, 1] }}
-            >
-              <span className="inline-block [transform:rotateX(3deg)_rotateY(-7deg)_skewX(-1deg)]">{word.text}</span>
-              {word.suffix ? (
-                <span className="login-cinematic-ampersand ml-5 inline-block align-baseline text-[0.86em] font-normal text-[#EEF3F7]/[0.30]">{word.suffix}</span>
-              ) : null}
-            </motion.p>
-          ))}
+      <div className="pointer-events-none absolute inset-0 hidden [perspective:900px] lg:block">
+        <div className="absolute left-[clamp(5.5rem,9vw,13rem)] top-1/2 -translate-y-1/2">
+          <motion.p
+            className="login-cinematic-word whitespace-nowrap text-[clamp(2rem,3.1vw,4.1rem)] font-semibold uppercase leading-[0.94] tracking-[-0.07em] text-[#EEF3F7]/[0.30]"
+            initial={reduceMotion ? false : { opacity: 0, x: -320, filter: 'blur(24px)' }}
+            animate={reduceMotion ? { opacity: 0.12 } : { opacity: 1, x: 0, filter: 'blur(0px)' }}
+            transition={{ duration: reduceMotion ? 0 : 2.55, delay: reduceMotion ? 0 : 0.18, ease: [0.1, 0.78, 0.16, 1] }}
+          >
+            <span className="inline-block [transform:rotateX(3deg)_rotateY(-7deg)_skewX(-1deg)]">ambientação</span>
+            <span className="login-cinematic-ampersand ml-5 inline-block align-baseline text-[0.86em] font-normal text-[#EEF3F7]/[0.30]">&amp;</span>
+          </motion.p>
+        </div>
+        <div className="absolute right-[clamp(6rem,9.7vw,14rem)] top-1/2 -translate-y-1/2">
+          <motion.p
+            className="login-cinematic-word whitespace-nowrap text-[clamp(2rem,3.1vw,4.1rem)] font-semibold uppercase leading-[0.94] tracking-[-0.07em] text-[#FF7417]/[0.48]"
+            initial={reduceMotion ? false : { opacity: 0, x: 320, filter: 'blur(24px)' }}
+            animate={reduceMotion ? { opacity: 0.12 } : { opacity: 1, x: 0, filter: 'blur(0px)' }}
+            transition={{ duration: reduceMotion ? 0 : 2.55, delay: reduceMotion ? 0 : 0.42, ease: [0.1, 0.78, 0.16, 1] }}
+          >
+            <span className="inline-block [transform:rotateX(3deg)_rotateY(7deg)_skewX(1deg)]">conectividade</span>
+          </motion.p>
         </div>
       </div>
       <motion.div
@@ -134,7 +141,7 @@ function LoginPage() {
                 <button
                   type="button"
                   onClick={() => {
-                    setInfo('Recuperação de senha simulada no MVP. Use uma conta de demonstração para acessar.')
+                    setInfo('Recuperação de senha indisponível nesta demonstração.')
                     setError('')
                   }}
                   className="rounded-md px-1 py-0.5 text-[0.72rem] font-medium leading-none text-[#FFB679]/68 transition-colors hover:text-[#FFB679] focus:outline-none focus:ring-2 focus:ring-[#E86A10]/30"
@@ -165,7 +172,7 @@ function LoginPage() {
           <div className="relative mt-8 border-t border-white/[0.08] pt-6">
             <p className="text-[0.68rem] font-semibold uppercase tracking-[0.22em] text-[#8A919E]">Contas demo</p>
             <div className="mt-3 space-y-2">
-              {demoAccounts.map((account) => (
+              {visibleDemoAccounts.map((account) => (
                 <button
                   key={account.email}
                   type="button"

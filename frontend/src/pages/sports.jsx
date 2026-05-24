@@ -1,5 +1,5 @@
-﻿import { Link } from 'react-router-dom'
-import { Lock, ShieldCheck } from 'lucide-react'
+import { Link } from 'react-router-dom'
+import { ShieldCheck } from 'lucide-react'
 import { sports, sportStatusBadge } from '../data/mockSports'
 import { useDemo } from '../context/demo-context'
 import { getSportAccessState, getSportEntryActionLabel } from '../utils/athletiza-rules'
@@ -13,14 +13,12 @@ function SportsPage() {
 
   return (
     <div className="space-y-5">
-      <PageHeader title="Modalidades" subtitle="Entrada livre e seletiva com estados visuais claros" />
+      <PageHeader title="Modalidades" subtitle="Times, treinos e contatos em uma visão simples" />
 
       <div className="grid gap-4 md:grid-cols-2">
         {sports.map((sport) => {
           const accessState = getSportAccessState(sport, sportMemberships[sport.id])
           const isParticipant = accessState === 'participant'
-          const isPending = accessState === 'pending'
-          const isLocked = !isParticipant
           const initials = sport.name
             .split(/[\s-]+/)
             .map((part) => part[0])
@@ -29,7 +27,7 @@ function SportsPage() {
             .toUpperCase()
 
           return (
-            <Card key={sport.id} className={`group ${isLocked ? 'relative overflow-hidden' : ''}`}>
+            <Card key={sport.id} className="group">
               <CardHeader>
                 <div className="flex items-start justify-between gap-4">
                   <div className="flex min-w-0 items-center gap-3">
@@ -45,31 +43,22 @@ function SportsPage() {
                       <p className="mt-1 text-sm text-[#8A919E]">{sport.shortDescription}</p>
                     </div>
                   </div>
-                  <Badge variant={sport.hasTryout ? 'warning' : 'success'}>{sportStatusBadge[sport.status]}</Badge>
+                  <Badge variant={isParticipant ? 'success' : 'brand'}>
+                    {isParticipant ? 'Ativa' : sportStatusBadge[sport.status]}
+                  </Badge>
                 </div>
               </CardHeader>
               <CardContent className="space-y-3">
-                <p className="text-xs text-[#C8CDD6]">Coordenador: {sport.coordinator.name}</p>
-                <p className="text-xs text-[#C8CDD6]">Contato: {sport.coordinator.contact}</p>
-
-                {isParticipant ? (
-                  <>
-                    <p className="text-xs text-white">Treinos: {sport.trainingSchedule.join(' | ')}</p>
-                    <p className="text-xs text-white">Valor: {sport.monthlyFee}</p>
-                    <Badge variant="success">Você participa desta modalidade</Badge>
-                  </>
-                ) : (
-                  <div className="rounded-2xl border border-dashed border-white/15 bg-[#131518] p-3">
-                    <p className="mb-2 inline-flex items-center gap-1 text-xs text-[#8A919E]"><Lock size={12} /> Informações privadas limitadas</p>
-                    <p className="text-xs text-[#C8CDD6]">{sport.hasTryout ? 'Seletiva necessária para acesso completo.' : 'Entrada livre para liberar agenda privada.'}</p>
-                  </div>
-                )}
+                <div className="grid gap-2 text-xs text-[#C8CDD6]">
+                  <p>Coordenador: {sport.coordinator.name}</p>
+                  <p>Treinos: {sport.trainingSchedule.join(' | ')}</p>
+                </div>
 
                 <div className="flex flex-wrap gap-2">
                   <Button
-                    variant={isPending ? 'surface' : 'primary'}
+                    variant={isParticipant ? 'surface' : 'primary'}
                     onClick={() => joinSport(sport.id)}
-                    disabled={isParticipant || isPending}
+                    disabled={isParticipant}
                   >
                     {getSportEntryActionLabel(accessState)}
                   </Button>
@@ -77,18 +66,14 @@ function SportsPage() {
                     <Button variant="outline">Ver detalhes</Button>
                   </Link>
                 </div>
-
-                {accessState === 'rejected' ? <p className="text-xs text-red-300">Solicitação rejeitada. Fale com o coordenador.</p> : null}
-                {isPending ? <p className="text-xs text-amber-200">Aguardando aprovação da diretoria.</p> : null}
               </CardContent>
-
             </Card>
           )
         })}
       </div>
 
       <div className="rounded-2xl border border-white/10 bg-[#1E2127] p-4 text-xs text-[#C8CDD6]">
-        <p className="inline-flex items-center gap-1"><ShieldCheck size={14} /> Poliatleta habilitado: sua agenda cruza eventos de todas as modalidades participantes.</p>
+        <p className="inline-flex items-center gap-1"><ShieldCheck size={14} /> Layout demonstrativo: todas as modalidades exibem informações prontas para navegação.</p>
       </div>
     </div>
   )

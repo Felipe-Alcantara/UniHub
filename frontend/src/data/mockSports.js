@@ -62,32 +62,6 @@ export const sports = [
     relatedEventIds: ['training-handebol-1'],
   },
   {
-    id: 'bateria',
-    name: 'Bateria',
-    description: 'Ensaios para festas, jogos e viagens da atlética.',
-    shortDescription: 'Ensaios para festas e jogos.',
-    coordinator: { name: 'Rita Campos', contact: '(24) 98800-1100' },
-    trainingSchedule: ['Quarta - 21:00', 'Sábado - 14:00'],
-    monthlyFee: 'R$ 50,00',
-    status: 'aberta',
-    hasTryout: false,
-    members: ['Bruna Silva', 'Rita Campos', 'João Teixeira'],
-    relatedEventIds: ['training-bateria-1', 'party-1'],
-  },
-  {
-    id: 'cheer',
-    name: 'Cheer',
-    description: 'Equipe de apresentação com foco em coreografia e acrobacias.',
-    shortDescription: 'Coreografia e acrobacias para eventos.',
-    coordinator: { name: 'Camila Nobre', contact: '(24) 97770-0099' },
-    trainingSchedule: ['Terça - 18:30', 'Sexta - 17:00'],
-    monthlyFee: 'R$ 95,00',
-    status: 'seletiva',
-    hasTryout: true,
-    members: ['Camila Nobre', 'Bruna Silva'],
-    relatedEventIds: ['training-cheer-1', 'event-student-1'],
-  },
-  {
     id: 'esports',
     name: 'E-sports',
     icon: sportEsportsIcon,
@@ -105,7 +79,7 @@ export const sports = [
 
 export const sportStatusBadge = {
   aberta: 'Aberta',
-  seletiva: 'Seletiva necessária',
-  privada: 'Privada',
+  seletiva: 'Aberta',
+  privada: 'Ativa',
   encerrada: 'Encerrada',
 }
