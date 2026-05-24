@@ -134,6 +134,22 @@ Este arquivo registra a memoria tecnica do projeto para continuidade entre sesso
 - [2026-05-24] Ícones de modalidades ganharam moldura própria (`sport-icon-frame`) com base clara, borda e sombra para preservar contraste dos assets preto/branco nos temas escuro e claro.
 - [2026-05-24] Tema branco foi refinado nos componentes base: cards, botões, badges e textos de estado ganharam estilos específicos; o overlay escuro dos cards bloqueados de modalidades foi removido para evitar barra preta no modo claro.
 - [2026-05-24] Agenda ganhou área útil mais larga em desktop e filtros compactados em selects nativos para tipo/visibilidade e modalidade, substituindo a faixa horizontal de chips.
+- [2026-05-24] Revisao de layout: o frontend autenticado foi ajustado para demonstracao local sem dependencia de backend no login, sem fluxos de confirmacao de presenca e sem aprovacoes manuais. Entradas de modalidades agora ficam liberadas/aprovadas visualmente, eventos mostram participacao como informacao de layout e o painel da diretoria exibe registros prontos em vez de acoes pendentes.
+- [2026-05-24] O login voltou a usar contas demo locais, exibindo `aluno@atletiza.com`, `diretoria@exemple.com` e `admin@exemple.com`; os aliases pessoais `gabriel@atletiza.com`, `julia@atletiza.com`, `andre@atletiza.com` e `luiz.filipe@atletiza.com` tambem entram localmente com a senha visual `Atletiza@2026`, sem chamada a API no frontend.
+- [2026-05-24] `npm test` (frontend): passou (15 testes) apos revisao para layout local.
+- [2026-05-24] `npm run build` (frontend): passou apos revisao para layout local.
+- [2026-05-24] O hub ganhou a aba local de horas complementares em `/hours`; cada evento mockado informa carga entre 5 e 20 horas, exibida na agenda, no detalhe e no resumo de oportunidades elegiveis.
+- [2026-05-24] A concessao de horas foi refinada para apenas eventos justificaveis: campeonatos oficiais e atividade formativa; festas, treinos e amistosos nao geram horas.
+- [2026-05-24] `npm test` (frontend): passou (16 testes), incluindo navegacao e totais da aba de horas complementares.
+- [2026-05-24] `npm run build` (frontend): passou apos inclusao da aba de horas complementares.
+- [2026-05-24] A central de links foi convertida em canais sociais da atletica, priorizando Instagram e grupos de WhatsApp com cards, icones e CTAs diretos de acesso.
+- [2026-05-24] Background cinematografico do login removeu a palavra decorativa `Atletiza:` e alinhou `ambientacao & conectividade` horizontalmente, com entradas opostas nas laterais da composicao desktop.
+- [2026-05-24] Modalidades deixaram de exibir valores/mensalidades nos cards de listagem e detalhe; a informacao de horarios de treino foi preservada.
+- [2026-05-24] Landing passou a listar os tres proximos eventos futuros vinculados as modalidades ativas do usuario, com contagem regressiva em tempo real ate o inicio de cada evento; presenca individual permanece sem persistencia no MVP.
+- [2026-05-24] Carteirinha digital foi redesenhada em formato horizontal ampliado e minimalista, com cabecalho institucional, dados do titular, modalidades, status, codigo de credencial, emissao/validade e QR claramente identificado como demonstrativo.
+- [2026-05-24] Modalidades `Bateria` e `Cheer` foram removidas do catalogo demonstrativo e dos vinculos de perfis/solicitacoes, evitando cards e contagens residuais na interface.
+- [2026-05-24] Badges visuais de visibilidade dos eventos (`Publico`, `Privado da atletica` e `Privado da modalidade`) foram removidos da agenda e do detalhe para reduzir ruido; as regras de acesso continuam ativas.
+- [2026-05-24] Agenda recebeu refinamento exclusivamente visual: filtros com hierarquia mais clara, dias em cards compactos responsivos e eventos com composicao editorial de horario/local, sem alteracao das regras ou dados.
 
 ## Auditoria de contexto e documentacao
 - [2026-05-24] Leitura integral do repositorio confirmou que o frontend ativo representa o produto ATLETIZA e deve prevalecer sobre referencias antigas a UniHub.
