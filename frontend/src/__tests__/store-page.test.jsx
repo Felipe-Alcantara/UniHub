@@ -56,7 +56,7 @@ describe('product showcase', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Consultar Camiseta oficial 2026' }))
 
     expect(screen.getByRole('status')).toHaveTextContent(
-      'Pedido de contato registrado para Camiseta oficial 2026. No MVP, fale com Davi - (24) 98888-2100.',
+      'Pedido de contato registrado para Camiseta oficial 2026. Fale com Davi - (24) 98888-2100.',
     )
   })
 })

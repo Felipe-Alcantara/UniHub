@@ -194,7 +194,7 @@ function StorePage() {
         ? 'Interesse no lançamento'
         : 'Pedido de contato'
 
-    setFeedback(`${action} registrado para ${product.name}. No MVP, fale com ${product.contact}.`)
+    setFeedback(`${action} registrado para ${product.name}. Fale com ${product.contact}.`)
   }
 
   return (
