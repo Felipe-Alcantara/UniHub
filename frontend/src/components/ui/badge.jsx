@@ -10,7 +10,7 @@
 function Badge({ variant = 'neutral', className = '', children, ...props }) {
   return (
     <span
-      className={`inline-flex items-center rounded-full border px-3 py-1 text-xs font-medium ${variantStyles[variant]} ${className}`}
+      className={`ui-badge ui-badge-${variant} inline-flex items-center rounded-full border px-3 py-1 text-xs font-medium ${variantStyles[variant]} ${className}`}
       {...props}
     >
       {children}

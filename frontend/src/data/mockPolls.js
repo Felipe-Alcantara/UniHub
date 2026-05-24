@@ -1,7 +1,7 @@
 ﻿export const polls = [
   {
     id: 'poll-party-theme',
-    title: 'Tema da proxima festa',
+    title: 'Tema da próxima festa',
     description: 'Escolha o tema oficial da festa de julho.',
     totalVotes: 132,
     options: [
@@ -12,8 +12,8 @@
   },
   {
     id: 'poll-training-time',
-    title: 'Melhor horario treino funcional',
-    description: 'Definir novo horario semanal de treino extra.',
+    title: 'Melhor horário para treino funcional',
+    description: 'Defina um novo horário semanal de treino extra.',
     totalVotes: 97,
     options: [
       { id: '18h', label: '18:00', votes: 28 },

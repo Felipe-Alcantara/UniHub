@@ -11,7 +11,7 @@ import Badge from '../components/ui/badge'
 import Button from '../components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card'
 import PageHeader from '../components/ui/page-header'
-import logoHorizontal from '../assets/brand/logo-atletiza-horizontal-white.png'
+import AtletizaLogo from '../components/brand/atletiza-logo'
 
 function DashboardPage() {
   const { activeUser, sportMemberships } = useDemo()
@@ -22,24 +22,24 @@ function DashboardPage() {
 
   const quickCards = [
     { label: 'Modalidades ativas', value: summary.participantSports, icon: Swords },
-    { label: 'Solicitacoes pendentes', value: summary.pendingSports, icon: UserCheck },
-    { label: 'Eventos visiveis', value: summary.visibleEvents.length, icon: CalendarDays },
+    { label: 'Solicitações pendentes', value: summary.pendingSports, icon: UserCheck },
+    { label: 'Eventos visíveis', value: summary.visibleEvents.length, icon: CalendarDays },
     { label: 'Avisos urgentes', value: announcements.filter((item) => item.priority === 'urgente').length, icon: Megaphone },
   ]
 
   return (
     <div className="space-y-6">
       <PageHeader
-        title={`Ola, ${activeUser.name.split(' ')[0]}`}
-        subtitle="Resumo do dia da Atletica Godzilla"
-        rightSlot={<Badge variant="brand">MVP demo</Badge>}
+        title={`Olá, ${activeUser.name.split(' ')[0]}`}
+        subtitle="Resumo do dia da Atlética Godzilla"
+        rightSlot={<Badge variant="brand">MVP de demonstração</Badge>}
       />
 
       <section className="rounded-3xl border border-white/10 bg-gradient-to-r from-[#1E2127] via-[#1E2127] to-[#261D18] p-5">
-        <img src={logoHorizontal} alt="Logo Atletiza" className="mb-3 h-8 w-auto" />
+        <AtletizaLogo surface="onDark" className="mb-3 h-8 w-auto" />
         <h2 className="text-xl font-bold text-white">Tudo da {athleticInfo.name} centralizado</h2>
         <p className="mt-1 text-sm text-[#C8CDD6]">
-          Treinos, jogos, festas, avisos, links e status da sua carteirinha em um unico fluxo.
+          Treinos, jogos, festas, avisos, links e status da sua carteirinha em um único fluxo.
         </p>
         <div className="mt-4 flex flex-wrap gap-2">
           <Link to="/calendar">
@@ -71,7 +71,7 @@ function DashboardPage() {
       <section className="grid gap-4 lg:grid-cols-[1.15fr_0.85fr]">
         <Card>
           <CardHeader>
-            <CardTitle>Proximos treinos e eventos</CardTitle>
+            <CardTitle>Próximos treinos e eventos</CardTitle>
           </CardHeader>
           <CardContent className="space-y-3">
             {summary.upcomingEvents.map((event) => (
@@ -88,7 +88,7 @@ function DashboardPage() {
 
         <Card>
           <CardHeader>
-            <CardTitle>Mural rapido</CardTitle>
+            <CardTitle>Mural rápido</CardTitle>
           </CardHeader>
           <CardContent className="space-y-3">
             {announcements.slice(0, 3).map((notice) => (
@@ -119,7 +119,7 @@ function DashboardPage() {
 
         <Card>
           <CardHeader>
-            <CardTitle className="flex items-center gap-2"><Contact2 size={16} /> Contato rapido</CardTitle>
+            <CardTitle className="flex items-center gap-2"><Contact2 size={16} /> Contato rápido</CardTitle>
           </CardHeader>
           <CardContent>
             <p className="text-sm font-semibold text-white">{athleticInfo.quickContact.name}</p>
@@ -141,7 +141,7 @@ function DashboardPage() {
       </section>
 
       <section>
-        <h2 className="mb-2 text-lg font-bold text-white">Proximos treinos</h2>
+        <h2 className="mb-2 text-lg font-bold text-white">Próximos treinos</h2>
         <div className="grid gap-3 md:grid-cols-3">
           {nextTrainings.map((item) => (
             <Card key={item.id}>

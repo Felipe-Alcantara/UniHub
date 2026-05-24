@@ -63,9 +63,9 @@ export function getSportAccessState(sport, membershipStatus) {
 
 export function getSportEntryActionLabel(accessState) {
   const map = {
-    participant: 'Voce participa desta modalidade',
-    pending: 'Solicitacao enviada',
-    rejected: 'Solicitacao rejeitada',
+    participant: 'Você participa desta modalidade',
+    pending: 'Solicitação enviada',
+    rejected: 'Solicitação rejeitada',
     tryout_required: 'Solicitar entrada',
     free_entry: 'Entrar na modalidade',
   }

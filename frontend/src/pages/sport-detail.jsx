@@ -29,9 +29,22 @@ function SportDetailPage() {
 
       <Card>
         <CardContent className="space-y-3 pt-5">
+          <div className="flex items-center gap-3">
+            <div className="sport-icon-frame flex h-16 w-16 shrink-0 items-center justify-center overflow-hidden rounded-2xl">
+              {sport.icon ? (
+                <img src={sport.icon} alt={`Logo ${sport.name}`} className="sport-icon-image h-12 w-12 object-contain" />
+              ) : (
+                <span className="text-base font-black tracking-tight text-[#FFB679]">{sport.name.slice(0, 2).toUpperCase()}</span>
+              )}
+            </div>
+            <div>
+              <p className="text-sm font-semibold text-white">{sport.name}</p>
+              <p className="text-xs text-[#8A919E]">Identidade visual da modalidade</p>
+            </div>
+          </div>
           <div className="flex flex-wrap gap-2">
             <Badge variant={sport.hasTryout ? 'warning' : 'success'}>{sportStatusBadge[sport.status]}</Badge>
-            <Badge variant="neutral">{sport.hasTryout ? 'Seletiva necessaria' : 'Entrada livre'}</Badge>
+            <Badge variant="neutral">{sport.hasTryout ? 'Seletiva necessária' : 'Entrada livre'}</Badge>
           </div>
           <p className="text-sm text-[#C8CDD6]">{sport.description}</p>
           <p className="text-xs text-white">Coordenador: {sport.coordinator.name}</p>
@@ -47,7 +60,7 @@ function SportDetailPage() {
             </Button>
           </div>
 
-          {accessState === 'pending' ? <p className="text-xs text-amber-200">Solicitacao enviada. Aguardando aprovacao da diretoria.</p> : null}
+          {accessState === 'pending' ? <p className="text-xs text-amber-200">Solicitação enviada. Aguardando aprovação da diretoria.</p> : null}
         </CardContent>
       </Card>
 
@@ -78,7 +91,7 @@ function SportDetailPage() {
                 {sport.members.map((member) => <li key={member}>• {member}</li>)}
               </ul>
             ) : (
-              <p className="text-sm text-[#C8CDD6]">Lista privada disponivel apenas para participantes.</p>
+              <p className="text-sm text-[#C8CDD6]">Lista privada disponível apenas para participantes.</p>
             )}
           </CardContent>
         </Card>
@@ -86,7 +99,7 @@ function SportDetailPage() {
 
       <Card>
         <CardHeader>
-          <CardTitle>Proximos jogos e eventos</CardTitle>
+          <CardTitle>Próximos jogos e eventos</CardTitle>
         </CardHeader>
         <CardContent className="space-y-2">
           {relatedEvents.map((event) => (

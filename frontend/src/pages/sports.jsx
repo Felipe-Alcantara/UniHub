@@ -21,15 +21,32 @@ function SportsPage() {
           const isParticipant = accessState === 'participant'
           const isPending = accessState === 'pending'
           const isLocked = !isParticipant
+          const initials = sport.name
+            .split(/[\s-]+/)
+            .map((part) => part[0])
+            .join('')
+            .slice(0, 2)
+            .toUpperCase()
 
           return (
-            <Card key={sport.id} className={isLocked ? 'relative overflow-hidden' : ''}>
+            <Card key={sport.id} className={`group ${isLocked ? 'relative overflow-hidden' : ''}`}>
               <CardHeader>
-                <div className="flex items-center justify-between gap-2">
-                  <CardTitle>{sport.name}</CardTitle>
+                <div className="flex items-start justify-between gap-4">
+                  <div className="flex min-w-0 items-center gap-3">
+                    <div className="sport-icon-frame flex h-14 w-14 shrink-0 items-center justify-center overflow-hidden rounded-2xl transition-transform duration-300 group-hover:-translate-y-0.5">
+                      {sport.icon ? (
+                        <img src={sport.icon} alt={`Logo ${sport.name}`} className="sport-icon-image h-10 w-10 object-contain" loading="lazy" />
+                      ) : (
+                        <span className="text-sm font-black tracking-tight text-[#FFB679]">{initials}</span>
+                      )}
+                    </div>
+                    <div className="min-w-0">
+                      <CardTitle>{sport.name}</CardTitle>
+                      <p className="mt-1 text-sm text-[#8A919E]">{sport.shortDescription}</p>
+                    </div>
+                  </div>
                   <Badge variant={sport.hasTryout ? 'warning' : 'success'}>{sportStatusBadge[sport.status]}</Badge>
                 </div>
-                <p className="text-sm text-[#8A919E]">{sport.shortDescription}</p>
               </CardHeader>
               <CardContent className="space-y-3">
                 <p className="text-xs text-[#C8CDD6]">Coordenador: {sport.coordinator.name}</p>
@@ -39,12 +56,12 @@ function SportsPage() {
                   <>
                     <p className="text-xs text-white">Treinos: {sport.trainingSchedule.join(' | ')}</p>
                     <p className="text-xs text-white">Valor: {sport.monthlyFee}</p>
-                    <Badge variant="success">Voce participa desta modalidade</Badge>
+                    <Badge variant="success">Você participa desta modalidade</Badge>
                   </>
                 ) : (
                   <div className="rounded-2xl border border-dashed border-white/15 bg-[#131518] p-3">
-                    <p className="mb-2 inline-flex items-center gap-1 text-xs text-[#8A919E]"><Lock size={12} /> Informacoes privadas limitadas</p>
-                    <p className="text-xs text-[#C8CDD6]">{sport.hasTryout ? 'Seletiva necessaria para acesso completo.' : 'Entrada livre para liberar agenda privada.'}</p>
+                    <p className="mb-2 inline-flex items-center gap-1 text-xs text-[#8A919E]"><Lock size={12} /> Informações privadas limitadas</p>
+                    <p className="text-xs text-[#C8CDD6]">{sport.hasTryout ? 'Seletiva necessária para acesso completo.' : 'Entrada livre para liberar agenda privada.'}</p>
                   </div>
                 )}
 
@@ -61,11 +78,10 @@ function SportsPage() {
                   </Link>
                 </div>
 
-                {accessState === 'rejected' ? <p className="text-xs text-red-300">Solicitacao rejeitada. Fale com o coordenador.</p> : null}
-                {isPending ? <p className="text-xs text-amber-200">Aguardando aprovacao da diretoria.</p> : null}
+                {accessState === 'rejected' ? <p className="text-xs text-red-300">Solicitação rejeitada. Fale com o coordenador.</p> : null}
+                {isPending ? <p className="text-xs text-amber-200">Aguardando aprovação da diretoria.</p> : null}
               </CardContent>
 
-              {isLocked ? <div className="pointer-events-none absolute inset-x-0 bottom-0 h-8 bg-gradient-to-t from-[#131518] to-transparent" /> : null}
             </Card>
           )
         })}

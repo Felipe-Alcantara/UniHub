@@ -49,7 +49,7 @@ function EventDetailPage() {
 
           <div className="grid gap-3 sm:grid-cols-2">
             <div className="rounded-2xl border border-white/10 bg-[#131518] p-3">
-              <p className="mb-1 inline-flex items-center gap-1 text-xs text-[#8A919E]"><CalendarDays size={14} /> Data e horario</p>
+              <p className="mb-1 inline-flex items-center gap-1 text-xs text-[#8A919E]"><CalendarDays size={14} /> Data e horário</p>
               <p className="text-sm text-white">{formatDateTime(event.date, event.startTime, event.endTime)}</p>
             </div>
             <div className="rounded-2xl border border-white/10 bg-[#131518] p-3">
@@ -57,36 +57,36 @@ function EventDetailPage() {
               <p className="text-sm text-white">{event.location}</p>
             </div>
             <div className="rounded-2xl border border-white/10 bg-[#131518] p-3">
-              <p className="mb-1 inline-flex items-center gap-1 text-xs text-[#8A919E]"><Shield size={14} /> Responsavel</p>
+              <p className="mb-1 inline-flex items-center gap-1 text-xs text-[#8A919E]"><Shield size={14} /> Responsável</p>
               <p className="text-sm text-white">{event.coordinatorName}</p>
               <p className="text-xs text-[#C8CDD6]">{event.coordinatorContact}</p>
             </div>
             <div className="rounded-2xl border border-white/10 bg-[#131518] p-3">
               <p className="mb-1 inline-flex items-center gap-1 text-xs text-[#8A919E]"><Contact size={14} /> Modalidade</p>
-              <p className="text-sm text-white">{sportName || 'Evento geral da atletica'}</p>
+              <p className="text-sm text-white">{sportName || 'Evento geral da atlética'}</p>
             </div>
           </div>
 
           <div className="rounded-2xl border border-white/10 bg-[#131518] p-3">
-            <p className="mb-1 inline-flex items-center gap-1 text-xs text-[#8A919E]"><Ticket size={14} /> Confirmacao de presenca</p>
+            <p className="mb-1 inline-flex items-center gap-1 text-xs text-[#8A919E]"><Ticket size={14} /> Confirmação de presença</p>
             {!event.isFree ? (
-              <p className="text-sm text-[#C8CDD6]">Evento pago: a confirmacao ocorre fora da plataforma no MVP.</p>
+              <p className="text-sm text-[#C8CDD6]">Evento pago: a confirmação ocorre fora da plataforma no MVP.</p>
             ) : event.requiresConfirmation ? (
               <div className="space-y-2">
-                <p className="text-sm text-[#C8CDD6]">Evento gratuito com lista de presenca habilitada.</p>
+                <p className="text-sm text-[#C8CDD6]">Evento gratuito com lista de presença habilitada.</p>
                 <Button onClick={() => confirmPresence(event.id)} disabled={confirmed}>
-                  {confirmed ? 'Presenca confirmada' : 'Confirmar presenca'}
+                  {confirmed ? 'Presença confirmada' : 'Confirmar presença'}
                 </Button>
               </div>
             ) : (
-              <p className="text-sm text-[#C8CDD6]">Evento gratuito sem necessidade de confirmacao.</p>
+              <p className="text-sm text-[#C8CDD6]">Evento gratuito sem necessidade de confirmação.</p>
             )}
           </div>
         </CardContent>
       </Card>
 
       <Link to="/calendar" className="inline-flex text-sm font-semibold text-[#FFB679]">Voltar para agenda</Link>
-      {needsConfirmation && confirmed ? <p className="text-xs text-emerald-300">Seu nome foi adicionado a lista privada de presenca.</p> : null}
+      {needsConfirmation && confirmed ? <p className="text-xs text-emerald-300">Seu nome foi adicionado à lista privada de presença.</p> : null}
     </div>
   )
 }

@@ -37,7 +37,7 @@ function CalendarPage() {
     <div className="space-y-5">
       <PageHeader
         title="Agenda da Atletiza"
-        subtitle="Calendario mobile-first com filtros por tipo, visibilidade e modalidade"
+        subtitle="Calendário mobile-first com filtros por tipo, visibilidade e modalidade"
       />
 
       <Card>
@@ -45,35 +45,36 @@ function CalendarPage() {
           <CardTitle>Filtros</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="mb-3 flex gap-2 overflow-x-auto pb-1">
-            {calendarFilters.map((filter) => (
-              <button
-                key={filter.id}
-                type="button"
-                onClick={() => setActiveFilter(filter.id)}
-                className={`whitespace-nowrap rounded-full border px-3 py-1 text-xs ${
-                  activeFilter === filter.id
-                    ? 'border-[#E86A10]/50 bg-[#E86A10]/20 text-[#FFB679]'
-                    : 'border-white/10 text-[#C8CDD6]'
-                }`}
+          <div className="grid gap-3 md:grid-cols-2">
+            <div>
+              <label className="text-xs text-[#8A919E]" htmlFor="calendar-filter">Tipo e visibilidade</label>
+              <select
+                id="calendar-filter"
+                value={activeFilter}
+                onChange={(event) => setActiveFilter(event.target.value)}
+                className="ui-select mt-1 h-11 w-full rounded-xl border border-white/10 bg-[#131518] px-3 text-sm font-medium text-white"
               >
-                {filter.label}
-              </button>
-            ))}
-          </div>
+                {calendarFilters.map((filter) => (
+                  <option key={filter.id} value={filter.id}>{filter.label}</option>
+                ))}
+              </select>
+            </div>
 
-          <label className="text-xs text-[#8A919E]" htmlFor="sport-filter">Modalidade</label>
-          <select
-            id="sport-filter"
-            value={selectedSport}
-            onChange={(event) => setSelectedSport(event.target.value)}
-            className="mt-1 h-10 w-full rounded-xl border border-white/10 bg-[#131518] px-3 text-sm text-white"
-          >
-            <option value="all">Todas as modalidades</option>
-            {sports.map((sport) => (
-              <option key={sport.id} value={sport.id}>{sport.name}</option>
-            ))}
-          </select>
+            <div>
+              <label className="text-xs text-[#8A919E]" htmlFor="sport-filter">Modalidade</label>
+              <select
+                id="sport-filter"
+                value={selectedSport}
+                onChange={(event) => setSelectedSport(event.target.value)}
+                className="ui-select mt-1 h-11 w-full rounded-xl border border-white/10 bg-[#131518] px-3 text-sm font-medium text-white"
+              >
+                <option value="all">Todas as modalidades</option>
+                {sports.map((sport) => (
+                  <option key={sport.id} value={sport.id}>{sport.name}</option>
+                ))}
+              </select>
+            </div>
+          </div>
         </CardContent>
       </Card>
 

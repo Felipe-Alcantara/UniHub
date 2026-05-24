@@ -1,11 +1,15 @@
 ﻿import { createContext, useContext, useMemo, useState } from 'react'
-import { demoUsers } from '../data/mockUser'
+import { demoUsers, participantDemoAccounts } from '../data/mockUser'
 import { sports } from '../data/mockSports'
 
 const DemoContext = createContext(null)
+const participantDemoAccountByEmail = Object.fromEntries(
+  participantDemoAccounts.map((account) => [account.email, account]),
+)
 
 function DemoProvider({ children }) {
   const [activeProfile, setActiveProfile] = useState(null)
+  const [authenticatedIdentity, setAuthenticatedIdentity] = useState(null)
   const [sportMembershipsByProfile, setSportMembershipsByProfile] = useState({
     student: { ...demoUsers.student.sportMemberships },
     board: { ...demoUsers.board.sportMemberships },
@@ -17,7 +21,24 @@ function DemoProvider({ children }) {
     { id: 'request-2', athleteName: 'Larissa Costa', sportId: 'cheer', status: 'pending' },
   ])
 
-  const activeUser = activeProfile ? { ...demoUsers[activeProfile], sportMemberships: sportMembershipsByProfile[activeProfile] } : null
+  const identityEmail = authenticatedIdentity?.email?.toLowerCase()
+  const participantIdentity = identityEmail ? participantDemoAccountByEmail[identityEmail] : null
+  const baseUser = activeProfile ? demoUsers[activeProfile] : null
+  const activeUser = baseUser
+    ? {
+        ...baseUser,
+        ...(authenticatedIdentity?.profile === activeProfile
+          ? {
+              id: `user-${authenticatedIdentity.email}`,
+              email: authenticatedIdentity.email,
+              name: authenticatedIdentity.name || participantIdentity?.name || baseUser.name,
+              registration: authenticatedIdentity.registration || participantIdentity?.registration || baseUser.registration,
+              roleLabel: authenticatedIdentity.role_label || baseUser.roleLabel,
+            }
+          : {}),
+        sportMemberships: sportMembershipsByProfile[activeProfile],
+      }
+    : null
 
   const value = useMemo(() => {
     const joinSport = (sportId) => {
@@ -39,7 +60,7 @@ function DemoProvider({ children }) {
 
       if (selectedSport.hasTryout) {
         setJoinRequests((current) => {
-          const hasRequest = current.some((request) => request.athleteName === demoUsers[activeProfile].name && request.sportId === sportId)
+          const hasRequest = current.some((request) => request.athleteName === activeUser.name && request.sportId === sportId)
           if (hasRequest) {
             return current
           }
@@ -48,7 +69,7 @@ function DemoProvider({ children }) {
             ...current,
             {
               id: `request-${current.length + 1}`,
-              athleteName: demoUsers[activeProfile].name,
+              athleteName: activeUser.name,
               sportId,
               status: 'pending',
             },
@@ -84,7 +105,7 @@ function DemoProvider({ children }) {
         return
       }
 
-      if (target.athleteName === demoUsers.student.name) {
+      if (target.athleteName === activeUser?.name) {
         setSportMembershipsByProfile((current) => {
           const next = { ...current }
           const mappedStatus = nextStatus === 'approved' ? 'participant' : 'rejected'
@@ -101,6 +122,7 @@ function DemoProvider({ children }) {
       joinRequests,
       presenceConfirmations,
       setActiveProfile,
+      setAuthenticatedIdentity,
       joinSport,
       confirmPresence,
       updateJoinRequest,

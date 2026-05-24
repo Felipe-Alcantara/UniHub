@@ -8,5 +8,5 @@
 }
 
 export function formatDateTime(dateString, startTime, endTime) {
-  return `${formatDate(dateString)} - ${startTime}${endTime ? ` as ${endTime}` : ''}`
+  return `${formatDate(dateString)} - ${startTime}${endTime ? ` às ${endTime}` : ''}`
 }

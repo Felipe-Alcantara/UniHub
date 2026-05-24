@@ -7,7 +7,7 @@ import PageHeader from '../components/ui/page-header'
 function BulletinPage() {
   return (
     <div className="space-y-5">
-      <PageHeader title="Mural e enquetes" subtitle="Avisos gerais, urgentes, por modalidade e votacoes mockadas" />
+      <PageHeader title="Mural e enquetes" subtitle="Avisos gerais, urgentes, por modalidade e votações simuladas" />
 
       <section className="grid gap-4 lg:grid-cols-2">
         <Card>
@@ -24,7 +24,7 @@ function BulletinPage() {
                 </div>
                 <p className="text-sm font-semibold text-white">{item.title}</p>
                 <p className="text-xs text-[#C8CDD6]">{item.message}</p>
-                <p className="mt-1 text-[11px] text-[#8A919E]">Publico: {item.audience}</p>
+                <p className="mt-1 text-[11px] text-[#8A919E]">Público: {item.audience}</p>
               </div>
             ))}
           </CardContent>

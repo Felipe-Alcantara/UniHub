@@ -1,6 +1,6 @@
 ﻿function Card({ className = '', children, ...props }) {
   return (
-    <div className={`rounded-3xl border border-white/10 bg-[#1E2127] ${className}`} {...props}>
+    <div className={`ui-card rounded-3xl border border-white/10 bg-[#1E2127] ${className}`} {...props}>
       {children}
     </div>
   )
