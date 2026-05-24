@@ -208,9 +208,9 @@ function CalendarPage() {
         </div>
       </section>
 
-      <div className="grid items-start gap-4 xl:grid-cols-2">
+      <div className="space-y-4">
         {grouped.length === 0 ? (
-          <Card className="xl:col-span-2">
+          <Card>
             <CardContent className="pt-5">
               <p className="text-sm text-[#C8CDD6]">Nenhum evento para os filtros atuais.</p>
             </CardContent>

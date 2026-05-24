@@ -150,6 +150,7 @@ Este arquivo registra a memoria tecnica do projeto para continuidade entre sesso
 - [2026-05-24] Modalidades `Bateria` e `Cheer` foram removidas do catalogo demonstrativo e dos vinculos de perfis/solicitacoes, evitando cards e contagens residuais na interface.
 - [2026-05-24] Badges visuais de visibilidade dos eventos (`Publico`, `Privado da atletica` e `Privado da modalidade`) foram removidos da agenda e do detalhe para reduzir ruido; as regras de acesso continuam ativas.
 - [2026-05-24] Agenda recebeu refinamento exclusivamente visual: filtros com hierarquia mais clara, dias em cards compactos responsivos e eventos com composicao editorial de horario/local, sem alteracao das regras ou dados.
+- [2026-05-24] Correcao visual da agenda restaurou o fluxo cronologico vertical dos dias, removendo o desalinhamento causado por cards com alturas diferentes em duas colunas.
 
 ## Auditoria de contexto e documentacao
 - [2026-05-24] Leitura integral do repositorio confirmou que o frontend ativo representa o produto ATLETIZA e deve prevalecer sobre referencias antigas a UniHub.
