@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atletiza | Plataforma Universitária</title>
+    <!-- Importando fontes: Oswald (Esportiva/Institucional) e Inter (Leitura UI) -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Oswald:wght@700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-grafite: #131518;        /* Fundo principal da tela */
+            --surface-grafite: #1E2127;   /* Fundo dos campos de texto */
+            --ambar-magnetico: #E86A10;   /* Cor de destaque principal */
+            --ambar-hover: #FF7B1C;       /* Cor do botão ao passar o mouse */
+            --texto-branco: #FFFFFF;
+            --texto-secundario: #8A919E;
+            --font-ui: 'Inter', sans-serif;
+            --font-logo: 'Oswald', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-grafite);
+            color: var(--texto-branco);
+            font-family: var(--font-ui);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Efeito de Marca D'água ao fundo */
+        .watermark {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) skewX(-12deg);
+            font-size: 120vh;
+            font-family: var(--font-logo);
+            font-weight: 700;
+            color: rgba(255, 255, 255, 0.015); /* Quase invisível */
+            z-index: 0;
+            pointer-events: none;
+            user-select: none;
+            line-height: 0.8;
+        }
+
+        /* Container Principal do Login */
+        .login-container {
+            width: 100%;
+            max-width: 400px;
+            padding: 40px 24px;
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 48px;
+        }
+
+        /* Cabeçalho da Marca (Apenas a Imagem PNG) */
+        .brand-header {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            margin-bottom: 8px;
+        }
+
+        .logo-img {
+            width: 100%;
+            max-width: 220px; /* Largura ideal para impacto sem tomar a tela toda */
+            height: auto;
+            display: block;
+            /* Filtro opcional para garantir que a imagem ganhe ainda mais nitidez na tela escura */
+            filter: drop-shadow(0px 4px 12px rgba(0,0,0,0.2)); 
+        }
+
+        /* Formulário */
+        .login-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .input-group label {
+            font-size: 13px;
+            color: var(--texto-secundario);
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .input-group input {
+            background-color: var(--surface-grafite);
+            border: 2px solid transparent;
+            color: var(--texto-branco);
+            padding: 16px;
+            font-size: 15px;
+            font-family: var(--font-ui);
+            border-radius: 2px; /* Cantos secos/retos */
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        /* Interação: O Brilho do Âmbar */
+        .input-group input:focus {
+            border-color: var(--ambar-magnetico);
+            background-color: #1A1D23;
+        }
+
+        .input-group input::placeholder {
+            color: #4A505C;
+        }
+
+        .forgot-password {
+            text-align: right;
+            margin-top: -8px;
+        }
+
+        .forgot-password a {
+            color: var(--texto-secundario);
+            text-decoration: none;
+            font-size: 13px;
+            transition: color 0.3s ease;
+        }
+
+        .forgot-password a:hover {
+            color: var(--texto-branco);
+        }
+
+        /* O Botão Principal */
+        .btn-primary {
+            margin-top: 16px;
+            background-color: var(--ambar-magnetico);
+            color: #0A0A0A; /* Texto escuro para contraste violento */
+            border: none;
+            padding: 18px;
+            font-family: var(--font-logo);
+            font-size: 22px;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transform: skewX(-12deg); /* Corte diagonal no botão */
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            border-radius: 2px;
+        }
+
+        /* Efeito de brilho esportivo no hover do botão */
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%; width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--ambar-hover);
+            box-shadow: 0 4px 20px rgba(232, 106, 16, 0.4);
+        }
+
+        .btn-primary:hover::before {
+            left: 100%;
+        }
+
+        /* Desfazendo a inclinação para o texto continuar legível */
+        .btn-text {
+            display: block;
+            transform: skewX(12deg); 
+            font-weight: 700;
+        }
+
+        /* Rodapé / Chamada para Ação */
+        .register-footer {
+            text-align: center;
+            margin-top: 16px;
+        }
+
+        .register-footer a {
+            color: var(--texto-branco);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            padding-bottom: 2px;
+        }
+
+        .register-footer a:hover {
+            color: var(--ambar-magnetico);
+            border-color: var(--ambar-magnetico);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- A "marca d'água" ao fundo dando textura -->
+    <div class="watermark">A</div>
+
+    <div class="login-container">
+        
+        <!-- Bloco de Branding com a Imagem PNG em Alta -->
+        <div class="brand-header">
+            <!-- Certifique-se de que o arquivo salvo tenha esse exato nome e esteja na mesma pasta do HTML -->
+            <img src="logo-branca.png" alt="Logotipo Vertical Atletiza" class="logo-img">
+        </div>
+
+        <!-- Inputs de Login -->
+        <form class="login-form">
+            <div class="input-group">
+                <label for="email">E-mail</label>
+                <input type="email" id="email" placeholder="atleta@universidade.com.br" required>
+            </div>
+
+            <div class="input-group">
+                <label for="password">Senha</label>
+                <input type="password" id="password" placeholder="••••••••" required>
+            </div>
+
+            <div class="forgot-password">
+                <a href="#">Esqueceu a senha?</a>
+            </div>
+
+            <button type="submit" class="btn-primary">
+                <span class="btn-text">ENTRAR</span>
+            </button>
+        </form>
+
+        <!-- Conexão de Comunidade -->
+        <div class="register-footer">
+            <a href="#">Cadastrar minha Atlética</a>
+        </div>
+
+    </div>
+
+</body>
+</html>
