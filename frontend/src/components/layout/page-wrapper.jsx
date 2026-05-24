@@ -3,7 +3,7 @@
 function PageWrapper({ children }) {
   return (
     <motion.main
-      className="mx-auto max-w-7xl px-4 pb-24 pt-20 sm:px-6 md:pb-10"
+      className="mx-auto max-w-[96rem] px-4 pb-24 pt-20 sm:px-6 lg:px-8 md:pb-10"
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.2 }}

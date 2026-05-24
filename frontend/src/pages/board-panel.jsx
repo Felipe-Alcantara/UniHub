@@ -1,4 +1,4 @@
-﻿import { useMemo, useState } from 'react'
+import { useState } from 'react'
 import { Navigate } from 'react-router-dom'
 import { boardPermissions } from '../data/mockAthletic'
 import { events } from '../data/mockEvents'
@@ -13,62 +13,58 @@ import Input from '../components/ui/input'
 import Modal from '../components/ui/modal'
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card'
 import PageHeader from '../components/ui/page-header'
-import logoSymbol from '../assets/brand/logo-atletiza-symbol-white.png'
+import godzillaCrest from '../assets/brand/logo-godzilla-crest.png'
+
+const permissionLabels = {
+  events: 'eventos',
+  trainings: 'treinos',
+  sports: 'modalidades',
+  links: 'links',
+  products: 'produtos',
+  approvals: 'entradas',
+  technical: 'recursos técnicos',
+}
 
 function BoardPanelPage() {
-  const { activeUser, joinRequests, updateJoinRequest, presenceConfirmations } = useDemo()
+  const { activeUser, joinRequests } = useDemo()
   const [activeForm, setActiveForm] = useState(null)
   const [feedback, setFeedback] = useState('')
   const [formState, setFormState] = useState({ title: '', date: '', owner: '' })
 
   if (!canAccessBoard(activeUser.profile)) {
-    return <Navigate to="/dashboard" replace />
+    return <Navigate to="/" replace />
   }
 
   const allowed = boardPermissions[activeUser.boardRole] || boardPermissions.dev_admin
-
-  const presenceByEvent = useMemo(() => {
-    const grouped = {}
-
-    presenceConfirmations.forEach((entry) => {
-      if (!grouped[entry.eventId]) {
-        grouped[entry.eventId] = []
-      }
-      grouped[entry.eventId].push(entry.userName)
-    })
-
-    return grouped
-  }, [presenceConfirmations])
-
   const sections = [
-    { key: 'events', label: 'Criar/editar eventos', total: events.length },
-    { key: 'trainings', label: 'Criar/editar treinos', total: events.filter((event) => event.type === 'training').length },
-    { key: 'sports', label: 'Gerenciar modalidades', total: sports.length },
-    { key: 'links', label: 'Gerenciar links', total: importantLinks.length },
-    { key: 'products', label: 'Gerenciar produtos', total: products.length },
+    { key: 'events', label: 'Eventos', total: events.length },
+    { key: 'trainings', label: 'Treinos', total: events.filter((event) => event.type === 'training').length },
+    { key: 'sports', label: 'Modalidades', total: sports.length },
+    { key: 'links', label: 'Links', total: importantLinks.length },
+    { key: 'products', label: 'Produtos', total: products.length },
   ]
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    setFeedback(`Acao simulada: ${activeForm} atualizado com sucesso.`)
+    setFeedback('Layout atualizado para a demonstração.')
     setFormState({ title: '', date: '', owner: '' })
     setActiveForm(null)
   }
 
   return (
     <div className="space-y-5">
-      <PageHeader title="Painel da diretoria" subtitle="Area administrativa mockada para o hackathon" />
+      <PageHeader title="Painel da diretoria" subtitle="Visão administrativa do layout" />
 
       <Card>
         <CardContent className="pt-5">
           <div className="mb-3 flex items-center gap-3">
-            <img src={logoSymbol} alt="Simbolo Atletiza" className="h-10 w-10" />
+            <img src={godzillaCrest} alt="Brasão da Atlética Godzilla" className="h-10 w-10 rounded-full object-cover" />
             <div>
               <p className="text-sm font-semibold text-white">ATLETIZA Admin</p>
               <p className="text-xs text-[#8A919E]">{activeUser.roleLabel}</p>
             </div>
           </div>
-          <p className="text-xs text-[#8A919E]">Permissoes: {allowed.join(', ')}</p>
+          <p className="text-xs text-[#8A919E]">Áreas: {allowed.map((permission) => permissionLabels[permission]).join(', ')}</p>
           {feedback ? <p className="mt-2 text-xs text-emerald-300">{feedback}</p> : null}
         </CardContent>
       </Card>
@@ -78,9 +74,9 @@ function BoardPanelPage() {
           <Card key={section.key}>
             <CardContent className="pt-5">
               <p className="text-sm font-semibold text-white">{section.label}</p>
-              <p className="text-xs text-[#8A919E]">Registros: {section.total}</p>
+              <p className="text-xs text-[#8A919E]">{section.total} itens no layout</p>
               <Button variant="outline" className="mt-3" onClick={() => setActiveForm(section.key)}>
-                Abrir formulario mockado
+                Editar visual
               </Button>
             </CardContent>
           </Card>
@@ -90,46 +86,31 @@ function BoardPanelPage() {
       <section className="grid gap-4 lg:grid-cols-2">
         <Card>
           <CardHeader>
-            <CardTitle>Aprovacoes de seletiva</CardTitle>
+            <CardTitle>Entradas registradas</CardTitle>
           </CardHeader>
           <CardContent className="space-y-3">
-            {joinRequests.filter((request) => request.status === 'pending').length === 0 ? (
-              <p className="text-sm text-[#C8CDD6]">Sem solicitacoes pendentes.</p>
-            ) : (
-              joinRequests
-                .filter((request) => request.status === 'pending')
-                .map((request) => (
-                  <div key={request.id} className="rounded-2xl border border-white/10 bg-[#131518] p-3">
-                    <p className="text-sm font-semibold text-white">{request.athleteName}</p>
-                    <p className="text-xs text-[#8A919E]">Modalidade: {sports.find((sport) => sport.id === request.sportId)?.name}</p>
-                    <div className="mt-2 flex gap-2">
-                      <Button variant="success" size="sm" onClick={() => updateJoinRequest(request.id, 'approved')}>Aprovar</Button>
-                      <Button variant="danger" size="sm" onClick={() => updateJoinRequest(request.id, 'rejected')}>Rejeitar</Button>
-                    </div>
-                  </div>
-                ))
-            )}
+            {joinRequests.map((request) => (
+              <div key={request.id} className="rounded-2xl border border-white/10 bg-[#131518] p-3">
+                <p className="text-sm font-semibold text-white">{request.athleteName}</p>
+                <p className="text-xs text-[#8A919E]">Modalidade: {sports.find((sport) => sport.id === request.sportId)?.name}</p>
+                <Badge variant="success" className="mt-2">Aprovado</Badge>
+              </div>
+            ))}
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader>
-            <CardTitle>Lista de presenca (eventos gratuitos)</CardTitle>
+            <CardTitle>Eventos em destaque</CardTitle>
           </CardHeader>
           <CardContent className="space-y-3">
-            {Object.keys(presenceByEvent).length === 0 ? (
-              <p className="text-sm text-[#C8CDD6]">Nenhuma confirmacao registrada no momento.</p>
-            ) : (
-              Object.entries(presenceByEvent).map(([eventId, names]) => (
-                <div key={eventId} className="rounded-2xl border border-white/10 bg-[#131518] p-3">
-                  <p className="text-sm font-semibold text-white">{events.find((event) => event.id === eventId)?.title}</p>
-                  <p className="mb-2 text-xs text-[#8A919E]">Confirmados: {names.length}</p>
-                  <ul className="space-y-1 text-xs text-[#C8CDD6]">
-                    {names.map((name) => <li key={name}>• {name}</li>)}
-                  </ul>
-                </div>
-              ))
-            )}
+            {events.slice(0, 3).map((event) => (
+              <div key={event.id} className="rounded-2xl border border-white/10 bg-[#131518] p-3">
+                <p className="text-sm font-semibold text-white">{event.title}</p>
+                <p className="text-xs text-[#8A919E]">{event.location}</p>
+                <Badge variant="neutral" className="mt-2">{event.status}</Badge>
+              </div>
+            ))}
           </CardContent>
         </Card>
       </section>
@@ -148,10 +129,10 @@ function BoardPanelPage() {
         </CardContent>
       </Card>
 
-      <Modal isOpen={Boolean(activeForm)} onClose={() => setActiveForm(null)} title="Formulario administrativo mockado">
+      <Modal isOpen={Boolean(activeForm)} onClose={() => setActiveForm(null)} title="Edição visual">
         <form className="space-y-3" onSubmit={handleSubmit}>
           <Input
-            label="Titulo"
+            label="Título"
             value={formState.title}
             onChange={(event) => setFormState((current) => ({ ...current, title: event.target.value }))}
             required
@@ -164,12 +145,12 @@ function BoardPanelPage() {
             required
           />
           <Input
-            label="Responsavel"
+            label="Responsável"
             value={formState.owner}
             onChange={(event) => setFormState((current) => ({ ...current, owner: event.target.value }))}
             required
           />
-          <Button className="w-full" type="submit">Salvar (simulado)</Button>
+          <Button className="w-full" type="submit">Aplicar no layout</Button>
         </form>
       </Modal>
     </div>

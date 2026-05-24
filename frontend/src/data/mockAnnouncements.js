@@ -1,13 +1,13 @@
 ﻿export const announcements = [
   {
     id: 'announcement-1',
-    title: 'Treino de volei com horario alterado',
+    title: 'Treino de vôlei com horário alterado',
     type: 'treino',
     priority: 'urgente',
     pinned: true,
-    audience: 'volei',
+    audience: 'vôlei',
     publishedAt: '2026-05-24 08:10',
-    message: 'Treino de terca comecara as 20:30 por indisponibilidade da quadra 2.',
+    message: 'Treino de terça começará às 20:30 por indisponibilidade da quadra 2.',
   },
   {
     id: 'announcement-2',
@@ -17,7 +17,7 @@
     pinned: false,
     audience: 'geral',
     publishedAt: '2026-05-24 09:15',
-    message: 'A lista para a Festa de Integracao fecha na quinta as 18:00.',
+    message: 'A lista para a Festa de Integração fecha na quinta às 18:00.',
   },
   {
     id: 'announcement-3',
@@ -27,7 +27,7 @@
     pinned: false,
     audience: 'geral',
     publishedAt: '2026-05-24 10:40',
-    message: 'Inscricoes abertas para novos atletas ate sexta-feira.',
+    message: 'Inscrições abertas para novos atletas até sexta-feira.',
   },
   {
     id: 'announcement-4',
@@ -37,6 +37,6 @@
     pinned: false,
     audience: 'handebol',
     publishedAt: '2026-05-24 11:30',
-    message: 'Treino de quinta cancelado por manutencao do ginasio B.',
+    message: 'Treino de quinta cancelado por manutenção do ginásio B.',
   },
 ]

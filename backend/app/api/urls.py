@@ -9,6 +9,7 @@ router = DefaultRouter()
 urlpatterns = [
     path('health/', HealthCheckView.as_view(), name='health-check'),
     path('v1/', include(router.urls)),
+    path('v1/auth/', include('apps.accounts.urls')),
     path('v1/academics/', include('apps.academics.urls')),
     path('v1/athletics/', include('apps.athletics.urls')),
     path('v1/campus/', include('apps.campus.urls')),

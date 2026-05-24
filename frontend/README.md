@@ -1,34 +1,43 @@
-# UniHub Frontend
+# ATLETIZA Frontend
 
-Interface React + Vite + Tailwind para o dashboard academico UniHub.
+Interface React + Vite + Tailwind do hub mobile-first para atleticas universitarias.
 
 ## Setup local
 
 ```bash
 cd frontend
 npm install
-cp .env.example .env
 npm run dev
 ```
 
-Por padrao, o Vite sobe em `http://localhost:3000` e faz proxy de `/api` para `http://localhost:8000`.
+Por padrao, o Vite sobe em `http://localhost:3000`.
+
+O login e demonstrativo e roda somente com estado local:
+
+- `aluno@atletiza.com`
+- `andre@atletiza.com`
+- `julia@atletiza.com`
+- `luiz.filipe@atletiza.com`
+- `diretoria@exemple.com`
+- `admin@exemple.com`
+
+Senha visual sugerida: `Atletiza@2026`.
 
 ## Estrutura
 
 ```text
 frontend/src/
-├── components/
-│   ├── layout/   # Navbar, sidebar e wrapper de pagina
-│   ├── parts/    # Cards compostos do dominio UniHub
-│   └── ui/       # Button, Card, Badge, Input, Modal
-├── data/         # Dados mockados do MVP
-├── pages/        # Dashboard, aluno, atletica e mapa
-└── utils/        # Cliente de API e helpers
+├── components/   # Layout, marca e componentes de UI
+├── data/         # Dados mockados do layout
+├── pages/        # Telas navegaveis da Atletiza
+└── utils/        # Regras e helpers do frontend
 ```
 
-## Telas iniciais
+## Telas ativas
 
-- `/` dashboard com avisos, prazos, eventos e agenda do dia
-- `/aluno` links, materias e pendencias academicas
-- `/atletica` area dos atletas e painel administrativo
-- `/mapa` mapa interativo por bloco e salas
+- `/login` acesso de demonstracao local
+- `/` landing autenticada com resumo e acessos do hub
+- `/calendar` agenda e eventos
+- `/hours` horas complementares oferecidas por evento
+- `/sports` modalidades
+- `/board` painel demo de diretoria

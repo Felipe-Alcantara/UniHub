@@ -2,6 +2,7 @@
   CalendarDays,
   ClipboardList,
   CreditCard,
+  GraduationCap,
   Home,
   Megaphone,
   Shield,
@@ -11,8 +12,9 @@
 } from 'lucide-react'
 
 export const navigationItems = [
-  { to: '/dashboard', label: 'Dashboard', icon: Home },
+  { to: '/', label: 'Início', icon: Home },
   { to: '/calendar', label: 'Agenda', icon: CalendarDays },
+  { to: '/hours', label: 'Horas', icon: GraduationCap },
   { to: '/sports', label: 'Modalidades', icon: Swords },
   { to: '/links', label: 'Links', icon: Link2 },
   { to: '/store', label: 'Vitrine', icon: ShoppingBag },
@@ -33,8 +35,8 @@ export const adminSections = [
   { id: 'sports', label: 'Modalidades' },
   { id: 'links', label: 'Links importantes' },
   { id: 'products', label: 'Produtos' },
-  { id: 'approvals', label: 'Aprovacoes de seletiva' },
-  { id: 'presence', label: 'Lista de presenca' },
+  { id: 'approvals', label: 'Entradas registradas' },
+  { id: 'presence', label: 'Eventos em destaque' },
 ]
 
 export const announcementTypes = {

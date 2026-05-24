@@ -1,10 +1,17 @@
-﻿export const sports = [
+import sportBasqueteIcon from '../assets/sports/sport-basquete.png'
+import sportEsportsIcon from '../assets/sports/sport-esports.png'
+import sportFutsalIcon from '../assets/sports/sport-futsal.png'
+import sportHandebolIcon from '../assets/sports/sport-handebol.png'
+import sportVoleiIcon from '../assets/sports/sport-volei.png'
+
+export const sports = [
   {
     id: 'futsal',
     name: 'Futsal',
-    description: 'Treinos tecnicos e jogos amistosos para o time masculino e feminino.',
-    shortDescription: 'Treinos tecnicos e amistosos semanais.',
-    coordinator: { name: 'Rafael Nunes', contact: '(11) 97777-1001' },
+    icon: sportFutsalIcon,
+    description: 'Treinos técnicos e jogos amistosos para o time masculino e feminino.',
+    shortDescription: 'Treinos técnicos e amistosos semanais.',
+    coordinator: { name: 'Rafael Nunes', contact: '(24) 97777-1001' },
     trainingSchedule: ['Segunda - 19:00', 'Quarta - 19:30'],
     monthlyFee: 'R$ 70,00',
     status: 'aberta',
@@ -14,11 +21,12 @@
   },
   {
     id: 'volei',
-    name: 'Volei',
-    description: 'Modalidade mista com foco em competicoes universitarias regionais.',
-    shortDescription: 'Equipe mista para competicoes universitarias.',
-    coordinator: { name: 'Ana Souza', contact: '(11) 96666-2233' },
-    trainingSchedule: ['Terca - 20:00', 'Quinta - 20:00'],
+    name: 'Vôlei',
+    icon: sportVoleiIcon,
+    description: 'Modalidade mista com foco em competições universitárias regionais.',
+    shortDescription: 'Equipe mista para competições universitárias.',
+    coordinator: { name: 'Ana Souza', contact: '(24) 96666-2233' },
+    trainingSchedule: ['Terça - 20:00', 'Quinta - 20:00'],
     monthlyFee: 'R$ 85,00',
     status: 'aberta',
     hasTryout: false,
@@ -28,9 +36,10 @@
   {
     id: 'basquete',
     name: 'Basquete',
-    description: 'Treinos de sistema tatico e preparacao fisica para torneios.',
-    shortDescription: 'Treinos taticos para torneios.',
-    coordinator: { name: 'Victor Araujo', contact: '(11) 95555-8899' },
+    icon: sportBasqueteIcon,
+    description: 'Treinos de sistema tático e preparação física para torneios.',
+    shortDescription: 'Treinos táticos para torneios.',
+    coordinator: { name: 'Victor Araújo', contact: '(24) 95555-8899' },
     trainingSchedule: ['Quarta - 18:00', 'Sexta - 18:30'],
     monthlyFee: 'R$ 90,00',
     status: 'seletiva',
@@ -41,9 +50,10 @@
   {
     id: 'handebol',
     name: 'Handebol',
-    description: 'Grupo em formacao com turmas iniciantes e avancadas.',
-    shortDescription: 'Turmas iniciantes e avancadas.',
-    coordinator: { name: 'Helena Cruz', contact: '(11) 94444-5566' },
+    icon: sportHandebolIcon,
+    description: 'Grupo em formação com turmas iniciantes e avançadas.',
+    shortDescription: 'Turmas iniciantes e avançadas.',
+    coordinator: { name: 'Helena Cruz', contact: '(24) 94444-5566' },
     trainingSchedule: ['Segunda - 17:30', 'Quinta - 18:00'],
     monthlyFee: 'R$ 75,00',
     status: 'aberta',
@@ -52,37 +62,12 @@
     relatedEventIds: ['training-handebol-1'],
   },
   {
-    id: 'bateria',
-    name: 'Bateria',
-    description: 'Ensaios para festas, jogos e viagens da atletica.',
-    shortDescription: 'Ensaios para festas e jogos.',
-    coordinator: { name: 'Rita Campos', contact: '(11) 98800-1100' },
-    trainingSchedule: ['Quarta - 21:00', 'Sabado - 14:00'],
-    monthlyFee: 'R$ 50,00',
-    status: 'aberta',
-    hasTryout: false,
-    members: ['Bruna Silva', 'Rita Campos', 'Joao Teixeira'],
-    relatedEventIds: ['training-bateria-1', 'party-1'],
-  },
-  {
-    id: 'cheer',
-    name: 'Cheer',
-    description: 'Equipe de apresentacao com foco em coreografia e acrobacias.',
-    shortDescription: 'Coreografia e acrobacias para eventos.',
-    coordinator: { name: 'Camila Nobre', contact: '(11) 97770-0099' },
-    trainingSchedule: ['Terca - 18:30', 'Sexta - 17:00'],
-    monthlyFee: 'R$ 95,00',
-    status: 'seletiva',
-    hasTryout: true,
-    members: ['Camila Nobre', 'Bruna Silva'],
-    relatedEventIds: ['training-cheer-1', 'event-student-1'],
-  },
-  {
     id: 'esports',
     name: 'E-sports',
-    description: 'Treinos online e presenciais para campeonatos universitarios.',
-    shortDescription: 'Treinos e campeonato universitario digital.',
-    coordinator: { name: 'Thiago Luz', contact: '(11) 92222-4488' },
+    icon: sportEsportsIcon,
+    description: 'Treinos online e presenciais para campeonatos universitários.',
+    shortDescription: 'Treinos e campeonato universitário digital.',
+    coordinator: { name: 'Thiago Luz', contact: '(24) 92222-4488' },
     trainingSchedule: ['Segunda - 21:00', 'Quinta - 21:00'],
     monthlyFee: 'R$ 60,00',
     status: 'privada',
@@ -94,7 +79,7 @@
 
 export const sportStatusBadge = {
   aberta: 'Aberta',
-  seletiva: 'Seletiva necessaria',
-  privada: 'Privada',
+  seletiva: 'Aberta',
+  privada: 'Ativa',
   encerrada: 'Encerrada',
 }

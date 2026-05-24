@@ -1,4 +1,4 @@
-﻿import { Link, Navigate, useParams } from 'react-router-dom'
+import { Link, Navigate, useParams } from 'react-router-dom'
 import { PhoneCall, Users } from 'lucide-react'
 import { sports, sportStatusBadge } from '../data/mockSports'
 import { events } from '../data/mockEvents'
@@ -25,20 +25,33 @@ function SportDetailPage() {
 
   return (
     <div className="space-y-5">
-      <PageHeader title={sport.name} subtitle="Detalhe de modalidade" back />
+      <PageHeader title={sport.name} subtitle="Detalhe da modalidade" back />
 
       <Card>
         <CardContent className="space-y-3 pt-5">
+          <div className="flex items-center gap-3">
+            <div className="sport-icon-frame flex h-16 w-16 shrink-0 items-center justify-center overflow-hidden rounded-2xl">
+              {sport.icon ? (
+                <img src={sport.icon} alt={`Logo ${sport.name}`} className="sport-icon-image h-12 w-12 object-contain" />
+              ) : (
+                <span className="text-base font-black tracking-tight text-[#FFB679]">{sport.name.slice(0, 2).toUpperCase()}</span>
+              )}
+            </div>
+            <div>
+              <p className="text-sm font-semibold text-white">{sport.name}</p>
+              <p className="text-xs text-[#8A919E]">Informações prontas para demonstração</p>
+            </div>
+          </div>
           <div className="flex flex-wrap gap-2">
-            <Badge variant={sport.hasTryout ? 'warning' : 'success'}>{sportStatusBadge[sport.status]}</Badge>
-            <Badge variant="neutral">{sport.hasTryout ? 'Seletiva necessaria' : 'Entrada livre'}</Badge>
+            <Badge variant={isParticipant ? 'success' : 'brand'}>{isParticipant ? 'Ativa' : sportStatusBadge[sport.status]}</Badge>
+            <Badge variant="neutral">Entrada liberada</Badge>
           </div>
           <p className="text-sm text-[#C8CDD6]">{sport.description}</p>
           <p className="text-xs text-white">Coordenador: {sport.coordinator.name}</p>
           <p className="text-xs text-[#C8CDD6]">Contato: {sport.coordinator.contact}</p>
 
           <div className="flex flex-wrap gap-2">
-            <Button onClick={() => joinSport(sport.id)} disabled={isParticipant || accessState === 'pending'}>
+            <Button onClick={() => joinSport(sport.id)} disabled={isParticipant}>
               {getSportEntryActionLabel(accessState)}
             </Button>
             <Button variant="outline">
@@ -46,25 +59,16 @@ function SportDetailPage() {
               Falar com coordenador
             </Button>
           </div>
-
-          {accessState === 'pending' ? <p className="text-xs text-amber-200">Solicitacao enviada. Aguardando aprovacao da diretoria.</p> : null}
         </CardContent>
       </Card>
 
       <div className="grid gap-4 lg:grid-cols-2">
         <Card>
           <CardHeader>
-            <CardTitle>Treinos e valores</CardTitle>
+            <CardTitle>Treinos</CardTitle>
           </CardHeader>
           <CardContent>
-            {isParticipant ? (
-              <>
-                <p className="mb-2 text-sm text-white">{sport.trainingSchedule.join(' | ')}</p>
-                <p className="text-sm text-[#C8CDD6]">Mensalidade: {sport.monthlyFee}</p>
-              </>
-            ) : (
-              <p className="text-sm text-[#C8CDD6]">Acesso completo liberado apenas para participantes aprovados.</p>
-            )}
+            <p className="text-sm text-white">{sport.trainingSchedule.join(' | ')}</p>
           </CardContent>
         </Card>
 
@@ -73,20 +77,16 @@ function SportDetailPage() {
             <CardTitle className="flex items-center gap-2"><Users size={16} /> Membros</CardTitle>
           </CardHeader>
           <CardContent>
-            {isParticipant ? (
-              <ul className="space-y-2 text-sm text-[#C8CDD6]">
-                {sport.members.map((member) => <li key={member}>• {member}</li>)}
-              </ul>
-            ) : (
-              <p className="text-sm text-[#C8CDD6]">Lista privada disponivel apenas para participantes.</p>
-            )}
+            <ul className="space-y-2 text-sm text-[#C8CDD6]">
+              {sport.members.map((member) => <li key={member}>• {member}</li>)}
+            </ul>
           </CardContent>
         </Card>
       </div>
 
       <Card>
         <CardHeader>
-          <CardTitle>Proximos jogos e eventos</CardTitle>
+          <CardTitle>Próximos jogos e eventos</CardTitle>
         </CardHeader>
         <CardContent className="space-y-2">
           {relatedEvents.map((event) => (
