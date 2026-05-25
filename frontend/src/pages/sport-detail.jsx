@@ -106,7 +106,7 @@ function SportDetailPage() {
           ))}
         </CardContent>
       </Card>
-    </div>
+
       <Modal isOpen={showLeaveModal} onClose={() => setShowLeaveModal(false)} title="Sair da modalidade">
         <p className="mb-5 text-sm text-[#C8CDD6]">
           Tem certeza que deseja sair de <span className="font-semibold text-white">{sport.name}</span>? Você poderá entrar novamente a qualquer momento.
