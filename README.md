@@ -1,178 +1,432 @@
-﻿# ATLETIZA
+# ATLETIZA
 
-Hub mobile-first para atleticas universitarias, focado em centralizar treinos, eventos, modalidades, links, vitrine e comunicacao em um unico fluxo.
+Hub mobile-first para atléticas universitárias, focado em centralizar treinos, eventos, modalidades, links, vitrine e comunicação em um único fluxo.
 
-## Problema real
-As informacoes da atletica normalmente ficam espalhadas entre grupos, redes sociais, planilhas e mensagens privadas. Isso gera perda de informacao para alunos e retrabalho para a diretoria.
+---
 
-## Proposta de valor
-ATLETIZA organiza tudo em uma experiencia unica, navegavel e apresentavel em contexto academico:
-- landing autenticada com resumo do dia e acessos do hub
-- agenda com filtros
-- modalidades com regra de entrada livre/seletiva
-- detalhe de evento/treino
-- links importantes
-- vitrine de produtos
-- carteirinha digital
-- mural com enquetes
-- painel da diretoria com formularios mockados
+# Problema real
 
-## Diferencial
-Nao e um hub academico generico. O produto e centrado nas regras reais do ecossistema de atleticas: modalidades, seletivas, eventos publicos/privados, aprovacoes e lista de presenca de eventos gratuitos.
+As informações da atlética normalmente ficam espalhadas entre grupos, redes sociais, planilhas e mensagens privadas. Isso gera perda de informação para alunos e retrabalho para a diretoria.
 
-## Contexto de apresentacao e compromisso real
-O ATLETIZA sera apresentado na faculdade em uma avaliacao com recursos e tempo limitados, considerando uma janela de 48 horas. Apesar do formato academico, o projeto nao e tratado como uma ficcao ou somente como demonstracao visual: ele representa uma solucao real para atleticas universitarias e deve permanecer tecnicamente viavel, util e evolutiva apos a apresentacao.
+---
 
-A entrega atual prioriza um MVP navegavel e honesto: o que ainda e simulado esta identificado, enquanto as decisoes de produto, interface e tecnologia devem permitir evolucao para uso real com smartphones e web, sem depender de infraestrutura inacessivel.
+# Proposta de valor
 
-## Criterios de avaliacao da apresentacao
-### I. Inovacao e adequacao ao tema
-- **Compreensao do desafio:** demonstrar que a solucao ataca a raiz do problema: informacoes da atletica dispersas, comunicacao fragmentada e dificuldade de acesso a eventos, modalidades e servicos.
-- **Originalidade:** apresentar o diferencial de um hub especializado no funcionamento de atleticas universitarias, em vez de um portal generico ou copia direta de outro aplicativo.
-- **Criatividade na restricao:** justificar as escolhas de MVP feitas para produzir uma solucao clara e funcional dentro dos recursos e do prazo de 48 horas.
+O ATLETIZA organiza tudo em uma experiência única, navegável e apresentável em contexto acadêmico:
 
-### II. Experiencia do usuario (UX/UI)
-- **Fluxo de navegacao:** permitir percursos logicos entre login, home e funcionalidades; nenhuma tela secundaria deve deixar o usuario sem caminho de retorno.
-- **Clareza e intuicao:** manter acoes reconheciveis e linguagem simples para que uma pessoa leiga entenda rapidamente a finalidade da plataforma.
-- **Capricho visual:** garantir consistencia da identidade ATLETIZA, alinhamentos, contraste legivel e responsividade mobile-first.
+- Landing autenticada com resumo do dia e acessos ao hub
+- Agenda com filtros
+- Modalidades com regra de entrada livre/seletiva
+- Detalhe de evento/treino
+- Links importantes
+- Vitrine de produtos
+- Carteirinha digital
+- Mural com enquetes
+- Painel da diretoria com formulários mockados
 
-### III. Viabilidade e impacto (visao de negocio)
-- **Dor real:** evidenciar que a desorganizacao de informacoes e processos afeta alunos e diretorias de atleticas.
-- **Potencial de mercado:** estruturar o MVP para que tres meses adicionais de desenvolvimento possam transforma-lo em um produto efetivamente utilizavel.
-- **Custos e realidade:** manter a solucao baseada em tecnologias acessiveis, como aplicacao web responsiva, smartphones e backend convencional.
+---
 
-## Status do MVP
-Pronto para demo local e captura de prints de apresentacao.
+# Diferencial
 
-## Funcionalidades do MVP
-- Login padrao com email e senha validados no backend para os perfis `aluno`, `diretoria` e `dev/admin`
-- Landing interna pos-login com resumo do aluno, destaques e acesso a todas as areas
-- Agenda com filtros por tipo, visibilidade e modalidade
-- Tela de detalhe de evento/treino com regra de confirmacao de presenca
-- Lista de modalidades e detalhe com estados:
-  - participante
-  - nao participante
-  - solicitacao pendente
-  - rejeitado
-  - entrada livre
-  - seletiva necessaria
-- Central de links importantes
-- Vitrine de produtos com busca, filtro por categoria e contato simulado (sem checkout)
-- Carteirinha digital mockada
-- Mural de avisos e enquetes
-- Painel da diretoria (mockado) com:
-  - criacao/edicao visual de eventos, treinos, modalidades, links e produtos
-  - aprovacao/rejeicao de seletiva
-  - lista de presenca de eventos gratuitos
+Não é um hub acadêmico genérico.
 
-## O que esta mockado
-- Dados de usuarios, eventos, modalidades, links, produtos, avisos e enquetes
+O produto é centrado nas regras reais do ecossistema de atléticas:
+
+- modalidades
+- seletivas
+- eventos públicos/privados
+- aprovações
+- lista de presença de eventos gratuitos
+
+---
+
+# Contexto de apresentação e compromisso real
+
+O ATLETIZA será apresentado na faculdade em uma avaliação com recursos e tempo limitados, considerando uma janela de 48 horas.
+
+Apesar do formato acadêmico, o projeto não é tratado como uma ficção ou apenas como demonstração visual: ele representa uma solução real para atléticas universitárias e deve permanecer tecnicamente viável, útil e evolutiva após a apresentação.
+
+A entrega atual prioriza um MVP navegável e honesto:
+
+- o que ainda é simulado está identificado
+- as decisões de produto, interface e tecnologia permitem evolução para uso real
+- foco em smartphones e web
+- sem depender de infraestrutura inacessível
+
+---
+
+# Critérios de avaliação da apresentação
+
+## I. Inovação e adequação ao tema
+
+### Compreensão do desafio
+
+Demonstrar que a solução ataca a raiz do problema:
+
+- informações dispersas
+- comunicação fragmentada
+- dificuldade de acesso a eventos, modalidades e serviços
+
+### Originalidade
+
+Apresentar o diferencial de um hub especializado no funcionamento de atléticas universitárias, em vez de um portal genérico ou cópia direta de outro aplicativo.
+
+### Criatividade na restrição
+
+Justificar as escolhas de MVP feitas para produzir uma solução clara e funcional dentro dos recursos e do prazo de 48 horas.
+
+---
+
+## II. Experiência do usuário (UX/UI)
+
+### Fluxo de navegação
+
+Permitir percursos lógicos entre login, home e funcionalidades.
+
+Nenhuma tela secundária deve deixar o usuário sem caminho de retorno.
+
+### Clareza e intuição
+
+Manter ações reconhecíveis e linguagem simples para que qualquer pessoa entenda rapidamente a finalidade da plataforma.
+
+### Capricho visual
+
+Garantir:
+
+- consistência da identidade ATLETIZA
+- alinhamentos
+- contraste legível
+- responsividade mobile-first
+
+---
+
+## III. Viabilidade e impacto
+
+### Dor real
+
+Evidenciar que a desorganização de informações e processos afeta alunos e diretorias de atléticas.
+
+### Potencial de mercado
+
+Estruturar o MVP para que três meses adicionais de desenvolvimento possam transformá-lo em um produto efetivamente utilizável.
+
+### Custos e realidade
+
+Manter a solução baseada em tecnologias acessíveis:
+
+- aplicação web responsiva
+- smartphones
+- backend convencional
+
+---
+
+# Status do MVP
+
+Pronto para demo local e captura de prints para apresentação.
+
+---
+
+# Funcionalidades do MVP
+
+## Autenticação
+
+- Login com e-mail e senha validados no backend
+- Perfis:
+  - aluno
+  - diretoria
+  - dev/admin
+
+## Home
+
+- Landing interna pós-login
+- Resumo do aluno
+- Destaques
+- Acesso rápido às áreas do hub
+
+## Agenda
+
+- Filtros por:
+  - tipo
+  - visibilidade
+  - modalidade
+
+## Eventos e treinos
+
+- Tela de detalhe
+- Regra de confirmação de presença
+
+## Modalidades
+
+Estados disponíveis:
+
+- participante
+- não participante
+- solicitação pendente
+- rejeitado
+- entrada livre
+- seletiva necessária
+
+## Links importantes
+
+Central de acesso rápido.
+
+## Vitrine de produtos
+
+- Busca
+- Filtro por categoria
+- Contato simulado
+- Sem checkout
+
+## Carteirinha digital
+
+Versão mockada.
+
+## Mural
+
+- Avisos
+- Enquetes
+
+## Painel da diretoria (mockado)
+
+- Criação/edição visual de:
+  - eventos
+  - treinos
+  - modalidades
+  - links
+  - produtos
+
+- Aprovação/rejeição de seletiva
+- Lista de presença de eventos gratuitos
+
+---
+
+# O que está mockado
+
+- Dados de usuários
+- Eventos
+- Modalidades
+- Links
+- Produtos
+- Avisos
+- Enquetes
 - Fluxos administrativos
-- Confirmacoes e aprovacoes persistidas apenas em estado local
 
-## Contas de demonstração
-O login consulta contas salvas no SQLite pelo backend Django. Todas usam a senha `Atletiza@2026`:
+Persistência apenas em estado local.
+
+---
+
+# Contas de demonstração
+
+Senha padrão para todas as contas:
+
+```txt
+Atletiza@2026
+```
 
 | Participante / Ambiente | E-mail | Matrícula |
-| --- | --- | --- |
-| Gabriel Fernandes | `gabriel@atletiza.com` | `202612345` (mock existente, a confirmar) |
+|---|---|---|
+| Gabriel Fernandes | `gabriel@atletiza.com` | `202612345` |
 | Júlia de Oliveira Martins | `julia@atletiza.com` | `2025101351` |
 | André Gustavo Melo da Silva | `andre@atletiza.com` | `2023121370` |
 | Luiz Filipe Silva Rocha | `luiz.filipe@atletiza.com` | `2025101510` |
-| Diretoria | `diretoria@exemple.com` | - |
-| Dev/Admin | `admin@exemple.com` | - |
+| Diretoria | `diretoria@example.com` | - |
+| Dev/Admin | `admin@example.com` | - |
 
-## Limitacoes conscientes do MVP
-- Login validado no backend, mas sem recuperacao automatica da sessao no frontend apos recarregar a pagina
-- Sem pagamento, checkout ou venda real
+---
+
+# Limitações conscientes do MVP
+
+- Sem recuperação automática de sessão autenticada
+- Sem checkout/pagamentos
 - Sem check-in
-- Backend integrado apenas para o acesso inicial neste ciclo
-- Conteudo funcional do hub ainda alimentado por mocks
+- Backend integrado apenas para login neste ciclo
+- Conteúdo funcional ainda alimentado por mocks
 
-## Stack
-- Frontend: React + Vite + Tailwind + Framer Motion + Lucide
-- Testes frontend: Vitest
-- Backend (base existente): Django + DRF + SQLite
+---
 
-## Estrutura de mocks
-- `frontend/src/data/mockAthletic.js`
-- `frontend/src/data/mockUser.js`
-- `frontend/src/data/mockSports.js`
-- `frontend/src/data/mockEvents.js`
-- `frontend/src/data/mockProducts.js`
-- `frontend/src/data/mockLinks.js`
-- `frontend/src/data/mockPolls.js`
-- `frontend/src/data/mockAnnouncements.js`
+# Stack
 
-## Como rodar o backend para login
+## Frontend
+
+- React
+- Vite
+- TailwindCSS
+- Framer Motion
+- Lucide
+
+## Backend
+
+- Django
+- Django REST Framework
+- SQLite
+
+## Testes
+
+- Vitest
+
+---
+
+# Estrutura de mocks
+
+```txt
+frontend/src/data/mockAthletic.js
+frontend/src/data/mockUser.js
+frontend/src/data/mockSports.js
+frontend/src/data/mockEvents.js
+frontend/src/data/mockProducts.js
+frontend/src/data/mockLinks.js
+frontend/src/data/mockPolls.js
+frontend/src/data/mockAnnouncements.js
+```
+
+---
+
+# Como rodar o backend
+
 ```bash
 cd backend
+
 python -m venv .venv
+
 # Ative o ambiente virtual
+
 pip install -r requirements.txt
+
 python manage.py migrate
+
 python manage.py runserver 8000
 ```
 
-## Como rodar o frontend
+---
+
+# Como rodar o frontend
+
 ```bash
 cd frontend
+
 npm install
+
 npm run dev
 ```
-Acesso local: `http://localhost:3000`. O backend deve estar ativo para realizar login.
 
-## Como rodar testes frontend
+Acesso local:
+
+```txt
+http://localhost:3000
+```
+
+O backend deve estar ativo para realizar login.
+
+---
+
+# Como rodar os testes
+
 ```bash
 cd frontend
+
 npm test
+
 npm run build
 ```
 
-## Workflow de branches para agentes IA
-- Nao trabalhar direto na `main` sem autorizacao explicita
+---
+
+# Workflow Git
+
+## Regras
+
+- Não trabalhar diretamente na `main`
 - Criar branch por feature
-  - Exemplo: `feature/atletiza-mvp`
-- Implementar -> testar -> validar manualmente -> documentar
-- Solicitar revisao/merge
-- Apagar branch apos validacao
+- Implementar → testar → validar → documentar
+- Abrir PR
+- Remover branch após merge
 
-### Rotina Git obrigatoria
-Antes de iniciar uma task:
-- `git fetch origin`
-- `git pull origin main`
-- atualizar a branch de trabalho com a `main` (merge/rebase conforme estrategia adotada pelo time)
+Exemplo:
 
-Antes de commit/entrega:
-- `git fetch origin`
-- `git pull origin main`
-- rodar testes
-- commitar com Conventional Commits
-- `git push origin <branch>`
-- abrir PR para `main`
+```bash
+feature/atletiza-mvp
+```
 
-## TDD pragmático aplicado
-Foram adicionados testes para regras criticas em:
-- `frontend/src/utils/__tests__/athletiza-rules.test.js`
+---
 
-Cobertura atual:
+# Rotina Git obrigatória
+
+## Antes de iniciar
+
+```bash
+git fetch origin
+
+git pull origin main
+```
+
+Atualizar a branch de trabalho com a `main`.
+
+---
+
+## Antes da entrega
+
+```bash
+git fetch origin
+
+git pull origin main
+
+npm test
+```
+
+Depois:
+
+```bash
+git commit -m "feat: descricao"
+
+git push origin nome-da-branch
+```
+
+Abrir PR para `main`.
+
+---
+
+# TDD pragmático aplicado
+
+Testes implementados em:
+
+```txt
+frontend/src/utils/__tests__/athletiza-rules.test.js
+```
+
+## Cobertura atual
+
 - filtro da agenda
-- visibilidade de evento publico/privado
-- diferenca entrada livre x seletiva
-- regra de confirmacao de presenca
-- diferenca de acesso aluno x diretoria/admin
+- visibilidade público/privado
+- entrada livre x seletiva
+- confirmação de presença
+- acesso aluno x diretoria/admin
 
-## Hackathon
-Este projeto foi priorizado para UX, navegacao e demonstracao local dentro da restricao de 48 horas. A apresentacao academica valida um MVP, mas o norte do produto e uma solucao real, viavel e clara para continuidade.
+---
 
-## Visao futura
-- restauracao automatica de sessao autenticada no frontend
-- API completa conectada ao frontend
-- permissoes por cargo persistidas
-- inscricoes reais em modalidades
-- aprovacao real de seletivas
-- integracao com WhatsApp/Instagram
+# Hackathon
+
+O projeto foi priorizado para:
+
+- UX
+- navegação
+- demonstração local
+- entrega realista dentro da restrição de 48 horas
+
+A apresentação acadêmica valida um MVP, mas o norte do produto é uma solução real, viável e evolutiva.
+
+---
+
+# Visão futura
+
+- restauração automática de sessão
+- API completa integrada ao frontend
+- permissões persistidas
+- inscrições reais em modalidades
+- aprovação real de seletivas
+- integração com WhatsApp/Instagram
 - pagamentos externos
-- relatorios da diretoria
-- suporte multi-atleticas
+- relatórios da diretoria
+- suporte multiatléticas
 - deploy
+
+---
