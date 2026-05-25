@@ -81,7 +81,7 @@ def start():
     npm = shutil.which("npm")
 
     backend_proc = subprocess.Popen(
-        [str(VENV_PYTHON), "manage.py", "runserver", "8000"],
+        [str(VENV_PYTHON), "manage.py", "runserver", "8001"],
         cwd=BACKEND,
     )
 
@@ -90,7 +90,7 @@ def start():
         cwd=FRONTEND,
     )
 
-    print("\n  Backend  -> http://localhost:8000")
+    print("\n  Backend  -> http://localhost:8001")
     print("  Frontend -> http://localhost:3000")
     print("\n  Pressione Ctrl+C para parar.\n")
 

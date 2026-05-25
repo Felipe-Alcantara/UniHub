@@ -86,6 +86,10 @@ export function getSportEntryActionLabel(accessState) {
   return map[accessState]
 }
 
+export function getSportLeaveLabel() {
+  return 'Sair da modalidade'
+}
+
 export function buildDashboardSummary(sportMemberships) {
   const visibleEvents = events.filter((event) => canViewEvent(event, sportMemberships))
   const upcomingEvents = visibleEvents.slice(0, 4)

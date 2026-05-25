@@ -39,6 +39,20 @@ function DemoProvider({ children }) {
     : null
 
   const value = useMemo(() => {
+    const leaveSport = (sportId) => {
+      if (!activeProfile) {
+        return
+      }
+
+      setSportMembershipsByProfile((current) => {
+        const next = { ...current }
+        const profileMemberships = { ...current[activeProfile] }
+        delete profileMemberships[sportId]
+        next[activeProfile] = profileMemberships
+        return next
+      })
+    }
+
     const joinSport = (sportId) => {
       if (!activeProfile) {
         return
@@ -83,6 +97,7 @@ function DemoProvider({ children }) {
       setActiveProfile,
       setAuthenticatedIdentity,
       joinSport,
+      leaveSport,
     }
   }, [activeProfile, activeUser, joinRequests, sportMembershipsByProfile])
 

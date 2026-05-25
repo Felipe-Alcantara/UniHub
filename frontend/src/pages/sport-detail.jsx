@@ -1,18 +1,21 @@
+import { useState } from 'react'
 import { Link, Navigate, useParams } from 'react-router-dom'
 import { PhoneCall, Users } from 'lucide-react'
 import { sports, sportStatusBadge } from '../data/mockSports'
 import { events } from '../data/mockEvents'
 import { useDemo } from '../context/demo-context'
-import { getSportAccessState, getSportEntryActionLabel } from '../utils/athletiza-rules'
+import { getSportAccessState, getSportEntryActionLabel, getSportLeaveLabel } from '../utils/athletiza-rules'
 import { formatDateTime } from '../utils/date-format'
 import Badge from '../components/ui/badge'
 import Button from '../components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card'
+import Modal from '../components/ui/modal'
 import PageHeader from '../components/ui/page-header'
 
 function SportDetailPage() {
   const { sportId } = useParams()
-  const { sportMemberships, joinSport } = useDemo()
+  const { sportMemberships, joinSport, leaveSport } = useDemo()
+  const [showLeaveModal, setShowLeaveModal] = useState(false)
 
   const sport = sports.find((item) => item.id === sportId)
   if (!sport) {
@@ -51,9 +54,15 @@ function SportDetailPage() {
           <p className="text-xs text-[#C8CDD6]">Contato: {sport.coordinator.contact}</p>
 
           <div className="flex flex-wrap gap-2">
-            <Button onClick={() => joinSport(sport.id)} disabled={isParticipant}>
-              {getSportEntryActionLabel(accessState)}
-            </Button>
+            {isParticipant ? (
+              <Button variant="surface" onClick={() => setShowLeaveModal(true)}>
+                {getSportLeaveLabel()}
+              </Button>
+            ) : (
+              <Button onClick={() => joinSport(sport.id)}>
+                {getSportEntryActionLabel(accessState)}
+              </Button>
+            )}
             <Button variant="outline">
               <PhoneCall size={14} />
               Falar com coordenador
@@ -97,6 +106,16 @@ function SportDetailPage() {
           ))}
         </CardContent>
       </Card>
+    </div>
+      <Modal isOpen={showLeaveModal} onClose={() => setShowLeaveModal(false)} title="Sair da modalidade">
+        <p className="mb-5 text-sm text-[#C8CDD6]">
+          Tem certeza que deseja sair de <span className="font-semibold text-white">{sport.name}</span>? Você poderá entrar novamente a qualquer momento.
+        </p>
+        <div className="flex justify-end gap-2">
+          <Button variant="outline" onClick={() => setShowLeaveModal(false)}>Cancelar</Button>
+          <Button variant="danger" onClick={() => { leaveSport(sport.id); setShowLeaveModal(false) }}>Sair da modalidade</Button>
+        </div>
+      </Modal>
     </div>
   )
 }
