@@ -6,7 +6,7 @@
       // GitHub Pages SPA redirect handler (segmentCount=1, matches 404.html)
       (function(l) {
         if (l.search[1] === 'p' && l.search[2] === '=') {
-          var path = '/' + l.search.slice(3).split('&q=').map(function(s, i) {
+          var path = l.search.slice(3).split('&q=').map(function(s) {
             return s.replace(/~and~/g, '&');
           }).join('?');
           window.history.replaceState(null, null,
