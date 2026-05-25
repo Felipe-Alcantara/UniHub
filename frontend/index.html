@@ -3,19 +3,19 @@
   <head>
     <meta charset="UTF-8" />
     <script>
-      // GitHub Pages SPA redirect handler
+      // GitHub Pages SPA redirect handler (segmentCount=1, matches 404.html)
       (function(l) {
-        if (l.search[1] === '/' ) {
-          var decoded = l.search.slice(1).split('&').map(function(s) {
-            return s.replace(/~and~/g, '&')
+        if (l.search[1] === 'p' && l.search[2] === '=') {
+          var path = '/' + l.search.slice(3).split('&q=').map(function(s, i) {
+            return s.replace(/~and~/g, '&');
           }).join('?');
           window.history.replaceState(null, null,
-            l.pathname.slice(0, -1) + decoded + l.hash
+            l.pathname.slice(0, -1) + path + l.hash
           );
         }
       }(window.location))
     </script>
-    <link rel="icon" type="image/svg+xml" href="/unihub.svg" />
+    <link rel="icon" type="image/svg+xml" href="./unihub.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />

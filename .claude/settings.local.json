@@ -4,7 +4,12 @@
       "Bash(python start.py)",
       "Bash(py -3.12 --version)",
       "Bash(py -3.11 --version)",
-      "Bash(py -3.13 --version)"
+      "Bash(py -3.13 --version)",
+      "Bash(git remote:*)",
+      "Bash(gh api:*)",
+      "Bash(git add:*)",
+      "Bash(git commit -m ':*)",
+      "Bash(git push:*)"
     ]
   }
 }
