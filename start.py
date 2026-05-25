@@ -29,12 +29,26 @@ def ensure_env_file(directory):
         print(f"  Criado {env_file.relative_to(ROOT)}")
 
 
+def find_python():
+    """Return a Python command list that can create a working venv.
+
+    Python 3.14 ships without ensurepip on some Windows installs, so prefer
+    an explicit 3.13 via the py launcher when available.
+    """
+    major, minor = sys.version_info[:2]
+    if major == 3 and minor >= 14:
+        result = subprocess.run(["py", "-3.13", "--version"], capture_output=True)
+        if result.returncode == 0:
+            return ["py", "-3.13"]
+    return [sys.executable]
+
+
 def setup_backend():
     print("\n=== Backend ===")
 
     if not VENV.exists():
         print("Criando virtualenv...")
-        run([sys.executable, "-m", "venv", str(VENV)])
+        run(find_python() + ["-m", "venv", str(VENV)])
 
     print("Instalando dependências...")
     run([str(VENV_PYTHON), "-m", "pip", "install", "-q", "-r", "requirements.txt"], cwd=BACKEND)
