@@ -10,7 +10,10 @@
       "Bash(git add:*)",
       "Bash(git commit -m ':*)",
       "Bash(git push:*)",
-      "Bash(gh run:*)"
+      "Bash(gh run:*)",
+      "Bash(command -v pandoc)",
+      "Bash(command -v wkhtmltopdf)",
+      "Bash(command -v npx)"
     ]
   }
 }

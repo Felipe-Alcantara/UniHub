@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Relatório Hackathon — ATLETIZA</title>
+<style>
+  :root {
+    --ink: #14181f;
+    --muted: #5b6472;
+    --brand: #0f3d2e;
+    --accent: #16a34a;
+    --line: #e3e7ec;
+    --soft: #f5f7f9;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body {
+    font-family: "Segoe UI", system-ui, -apple-system, Arial, sans-serif;
+    color: var(--ink);
+    line-height: 1.6;
+    margin: 0;
+    font-size: 15px;
+  }
+  .page { max-width: 820px; margin: 0 auto; padding: 0 48px 48px; }
+
+  /* ===== Capa ===== */
+  .cover {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background: linear-gradient(160deg, #0f3d2e 0%, #0b2a20 100%);
+    color: #fff;
+    padding: 60px;
+    page-break-after: always;
+  }
+  .cover .institution {
+    position: absolute; top: 56px; left: 0; right: 0;
+    font-size: 15px; letter-spacing: .5px; opacity: .92; line-height: 1.5;
+    font-weight: 600;
+  }
+  .cover .institution span { font-weight: 300; opacity: .8; font-size: 14px; }
+  .cover .logo { width: 360px; max-width: 70%; margin-bottom: 28px; }
+  .cover h1 {
+    font-size: 40px; letter-spacing: 6px; margin: 0 0 6px;
+    font-weight: 800;
+  }
+  .cover .sub { font-size: 19px; opacity: .92; margin: 0 0 40px; font-weight: 300; }
+  .cover .divider { width: 80px; height: 3px; background: var(--accent); border: none; margin: 0 0 40px; border-radius: 2px; }
+  .cover .meta { font-size: 15px; opacity: .9; line-height: 1.9; }
+  .cover .meta b { font-weight: 700; }
+  .cover .repo { margin-top: 28px; font-size: 13px; opacity: .8; word-break: break-all; }
+  .cover .cover-date {
+    position: absolute; bottom: 48px; left: 0; right: 0;
+    font-size: 14px; opacity: .85; font-weight: 300;
+  }
+
+  /* ===== Conteúdo ===== */
+  h2 {
+    color: var(--brand);
+    font-size: 22px;
+    margin: 38px 0 4px;
+    padding-top: 14px;
+    border-top: 2px solid var(--line);
+  }
+  h2:first-of-type { border-top: none; }
+  h2 .pts {
+    font-size: 13px; color: #fff; background: var(--accent);
+    padding: 2px 10px; border-radius: 20px; vertical-align: middle;
+    margin-left: 8px; font-weight: 600;
+  }
+  h3 { color: var(--ink); font-size: 16px; margin: 22px 0 6px; }
+  p { margin: 8px 0; }
+  strong { color: var(--ink); }
+  a { color: var(--accent); }
+
+  table {
+    width: 100%; border-collapse: collapse; margin: 14px 0;
+    font-size: 14px; page-break-inside: avoid;
+  }
+  th, td { text-align: left; padding: 9px 12px; border: 1px solid var(--line); vertical-align: top; }
+  th { background: var(--brand); color: #fff; font-weight: 600; }
+  tr:nth-child(even) td { background: var(--soft); }
+
+  ul { margin: 8px 0; padding-left: 22px; }
+  li { margin: 4px 0; }
+
+  blockquote {
+    margin: 14px 0; padding: 12px 16px;
+    background: var(--soft); border-left: 4px solid var(--accent);
+    color: var(--muted); border-radius: 0 6px 6px 0;
+  }
+  blockquote ul { margin: 6px 0; }
+
+  .note { font-size: 13px; color: var(--muted); }
+  .footer { margin-top: 40px; padding-top: 16px; border-top: 1px solid var(--line);
+    text-align: center; color: var(--muted); font-size: 13px; }
+
+  /* ===== Galeria de prints ===== */
+  .shots { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin: 16px 0; }
+  .shot { page-break-inside: avoid; }
+  .shot img {
+    width: 100%; height: auto; display: block;
+    border: 1px solid var(--line); border-radius: 8px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.10);
+  }
+  .shot .cap { font-size: 13px; color: var(--muted); margin-top: 6px; text-align: center; }
+  .shot .cap b { color: var(--brand); }
+  .shot.wide { grid-column: 1 / -1; }
+
+  @media print {
+    .cover { min-height: 0; height: 100vh; }
+    h2 { page-break-after: avoid; }
+    table, blockquote { page-break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===================== CAPA ===================== -->
+<section class="cover">
+  <div class="institution">
+    Centro Universitário Geraldo Di Biase — UGB/FERP<br>
+    <span>Sistemas de Informação</span>
+  </div>
+  <img class="logo" src="../frontend/src/assets/brand/logo-atletiza-horizontal-white.png" alt="ATLETIZA">
+  <hr class="divider">
+  <p class="sub">Relatório Final — Hackathon</p>
+  <p class="sub" style="font-size:15px; margin-top:-26px;">Avaliação de Desempenho e Entrega Técnica</p>
+  <div class="meta">
+    <b>Integrantes</b><br>
+    Felipe &nbsp;•&nbsp; Gabriel Fernandes &nbsp;•&nbsp; André Gustavo Melo da Silva<br>
+    Júlia de Oliveira Martins &nbsp;•&nbsp; Luiz Filipe Silva Rocha
+  </div>
+  <div class="repo">github.com/Felipe-Alcantara/UniHub</div>
+  <div class="cover-date">Volta Redonda, 12 de junho de 2026</div>
+</section>
+
+<div class="page">
+
+<!-- ===================== 1. IDENTIFICAÇÃO ===================== -->
+<h2>1. Identificação</h2>
+<p><strong>Nome do projeto:</strong> ATLETIZA <span class="note">(originalmente apresentado como "UniHub"; o nome evoluiu para ATLETIZA durante o processo)</span></p>
+<p><strong>Integrantes:</strong> Felipe, André, Gabriel, Júlia e Luiz</p>
+<p><strong>Repositório:</strong> <a href="https://github.com/Felipe-Alcantara/UniHub">https://github.com/Felipe-Alcantara/UniHub</a></p>
+<blockquote>O repositório mantém o nome <strong>UniHub</strong> por motivos históricos. O produto foi renomeado para <strong>ATLETIZA</strong> ao longo do desenvolvimento.</blockquote>
+
+<!-- ===================== 2. DOCUMENTAÇÃO ===================== -->
+<h2>2. Documentação da Solução <span class="pts">1,5 pts</span></h2>
+
+<h3>2.1 O problema</h3>
+<p>As atléticas universitárias enfrentam um problema crônico de <strong>dispersão de informação e fragmentação da comunicação</strong>. Hoje, o que uma atlética precisa comunicar aos alunos fica espalhado entre grupos de WhatsApp, posts e stories no Instagram, planilhas compartilhadas e mensagens privadas avulsas.</p>
+<p>Esse modelo gera dois efeitos negativos:</p>
+<ul>
+  <li><strong>Para os alunos:</strong> perda de informação. Eventos, treinos, modalidades e serviços ficam difíceis de encontrar, e muita gente não fica sabendo do que está acontecendo.</li>
+  <li><strong>Para a diretoria:</strong> retrabalho constante. As mesmas informações precisam ser republicadas em vários canais, e processos como inscrição em modalidades, seletivas e listas de presença são administrados manualmente, sem fluxo organizado.</li>
+</ul>
+<p>O ATLETIZA ataca a <strong>raiz</strong> desse problema: centraliza treinos, eventos, modalidades, links, vitrine e comunicação em um único fluxo navegável, especializado nas regras reais do ecossistema de atléticas (entrada livre x seletiva, eventos públicos x privados, aprovações, listas de presença).</p>
+
+<h3>2.2 Arquitetura técnica</h3>
+<p>A solução é uma <strong>aplicação web responsiva mobile-first</strong>, com frontend e backend desacoplados.</p>
+<table>
+  <tr><th>Camada</th><th>Tecnologias</th></tr>
+  <tr><td><strong>Frontend</strong></td><td>React 18, Vite 6, TailwindCSS 3, Framer Motion, Lucide React, React Router DOM 6</td></tr>
+  <tr><td><strong>Backend</strong></td><td>Django, Django REST Framework, SQLite</td></tr>
+  <tr><td><strong>Testes</strong></td><td>Vitest, Testing Library</td></tr>
+</table>
+<p><strong>Justificativa (criatividade na restrição de 48h):</strong> a stack priorizou velocidade de entrega e tecnologias acessíveis. React + Vite + Tailwind permitem uma interface caprichada e responsiva rapidamente; Django + DRF oferecem um backend convencional e sólido, sem depender de infraestrutura inacessível. O resultado é um MVP que roda localmente para a demo, mas permanece <strong>tecnicamente viável e evolutivo</strong> para uso real.</p>
+
+<!-- ===================== 3. ENTREGA DO MVP ===================== -->
+<h2>3. Entrega do Produto / MVP <span class="pts">2,5 pts</span></h2>
+
+<h3>3.1 Repositório</h3>
+<p>🔗 <a href="https://github.com/Felipe-Alcantara/UniHub"><strong>https://github.com/Felipe-Alcantara/UniHub</strong></a></p>
+
+<h3>3.2 Funcionalidades implementadas com sucesso</h3>
+<p>O MVP é navegável de ponta a ponta. As telas implementadas e funcionais:</p>
+<table>
+  <tr><th>Funcionalidade</th><th>Descrição</th></tr>
+  <tr><td><strong>Autenticação</strong></td><td>Login com e-mail e senha validados no backend (Django). Perfis: aluno, diretoria e dev/admin.</td></tr>
+  <tr><td><strong>Home / Landing</strong></td><td>Tela pós-login com resumo do aluno, destaques e acesso rápido às áreas do hub.</td></tr>
+  <tr><td><strong>Agenda</strong></td><td>Eventos e treinos com filtros por tipo, visibilidade e modalidade.</td></tr>
+  <tr><td><strong>Eventos e treinos</strong></td><td>Tela de detalhe com regra de confirmação de presença.</td></tr>
+  <tr><td><strong>Modalidades</strong></td><td>Estados: participante, não participante, solicitação pendente, rejeitado, entrada livre e seletiva necessária.</td></tr>
+  <tr><td><strong>Links importantes</strong></td><td>Central de acesso rápido aos links da atlética.</td></tr>
+  <tr><td><strong>Vitrine de produtos</strong></td><td>Busca, filtro por categoria e contato simulado (sem checkout).</td></tr>
+  <tr><td><strong>Carteirinha digital</strong></td><td>Versão mockada da carteirinha do aluno.</td></tr>
+  <tr><td><strong>Mural</strong></td><td>Avisos e enquetes.</td></tr>
+  <tr><td><strong>Painel da diretoria</strong></td><td>Criação/edição de eventos, treinos, modalidades, links e produtos; aprovação/rejeição de seletivas; lista de presença de eventos gratuitos.</td></tr>
+  <tr><td><strong>Horas complementares</strong></td><td>Tela de acompanhamento de horas complementares.</td></tr>
+</table>
+
+<h3>3.3 O que está conscientemente mockado</h3>
+<p>Em transparência com a avaliação, o MVP deixa explícito o que ainda é simulado: dados de usuários, eventos, modalidades, links, produtos, avisos e enquetes (persistência apenas em estado local), além dos fluxos administrativos do painel. O <strong>login é o fluxo realmente integrado ao backend</strong> neste ciclo; as demais áreas usam mocks estruturados (<span class="note">frontend/src/data/mock*.js</span>), mantendo a demo honesta e o caminho aberto para integração real.</p>
+
+<h3>3.4 Qualidade e testes</h3>
+<p>Aplicamos <strong>TDD pragmático</strong> sobre as regras de negócio centrais, com cobertura em: filtro da agenda; visibilidade público/privado; entrada livre x seletiva; confirmação de presença; controle de acesso aluno x diretoria/admin.</p>
+
+<h3>3.5 Capturas de tela</h3>
+<p>Prints capturados da aplicação em execução local (sessão real de aluno e de diretoria):</p>
+
+<div class="shots">
+  <div class="shot"><img src="screenshots/login.png" alt="Login"><div class="cap"><b>Login</b> — autenticação com contas demo</div></div>
+  <div class="shot"><img src="screenshots/home.png" alt="Home"><div class="cap"><b>Home</b> — resumo do aluno e acessos rápidos</div></div>
+</div>
+
+<div class="shots">
+  <div class="shot"><img src="screenshots/agenda.png" alt="Agenda"><div class="cap"><b>Agenda</b> — eventos e treinos com filtros</div></div>
+  <div class="shot"><img src="screenshots/detalhe-evento.png" alt="Detalhe de evento"><div class="cap"><b>Detalhe de evento/treino</b></div></div>
+</div>
+
+<div class="shots">
+  <div class="shot"><img src="screenshots/modalidades.png" alt="Modalidades"><div class="cap"><b>Modalidades</b> — estados de inscrição</div></div>
+  <div class="shot"><img src="screenshots/detalhe-modalidade.png" alt="Detalhe de modalidade"><div class="cap"><b>Detalhe da modalidade</b> — entrar, treinos, membros</div></div>
+</div>
+
+<div class="shots">
+  <div class="shot"><img src="screenshots/links.png" alt="Links"><div class="cap"><b>Links importantes</b></div></div>
+  <div class="shot"><img src="screenshots/vitrine.png" alt="Vitrine"><div class="cap"><b>Vitrine de produtos</b> — busca e filtros</div></div>
+</div>
+
+<div class="shots">
+  <div class="shot"><img src="screenshots/carteirinha.png" alt="Carteirinha"><div class="cap"><b>Carteirinha digital</b></div></div>
+  <div class="shot"><img src="screenshots/mural.png" alt="Mural"><div class="cap"><b>Mural</b> — avisos e enquetes</div></div>
+</div>
+
+<div class="shots">
+  <div class="shot"><img src="screenshots/horas.png" alt="Horas complementares"><div class="cap"><b>Horas complementares</b></div></div>
+</div>
+
+<div class="shots">
+  <div class="shot wide"><img src="screenshots/painel-diretoria.png" alt="Painel da diretoria"><div class="cap"><b>Painel da diretoria</b> — gestão de eventos, treinos, modalidades, links, produtos e entradas</div></div>
+</div>
+
+<!-- ===================== 4. PARTICIPAÇÃO E PROCESSO ===================== -->
+<h2>4. Relatório de Participação e Processo <span class="pts">3,0 pts</span></h2>
+
+<h3>4.1 Divisão de tarefas</h3>
+<p>As responsabilidades foram distribuídas conforme a <strong>familiaridade e o ponto forte de cada integrante</strong>, permitindo paralelizar o trabalho e aproveitar ao máximo a janela de 48 horas:</p>
+<table>
+  <tr><th>Integrante</th><th>Responsabilidade</th></tr>
+  <tr><td>Gabriel</td><td>Documentação</td></tr>
+  <tr><td>Felipe</td><td>Arquitetura</td></tr>
+  <tr><td>André</td><td>Front-end</td></tr>
+  <tr><td>Júlia</td><td>Design</td></tr>
+  <tr><td>Luiz</td><td>Back-end</td></tr>
+</table>
+
+<h3>4.2 Gestão e Colaboração</h3>
+<p>A organização partiu de uma premissa simples: <strong>cada pessoa atua onde tem mais domínio</strong>. Em vez de distribuir tarefas aleatoriamente, mapeamos a familiaridade de cada integrante e alocamos as frentes de acordo — Felipe na arquitetura técnica, Luiz no back-end, André no front-end, Júlia no design e identidade visual e Gabriel na documentação.</p>
+<p>Essa divisão por afinidade reduziu a curva de aprendizado durante o evento e permitiu que cada frente avançasse em paralelo. O fluxo seguiu um <strong>workflow Git disciplinado</strong>: branch por feature, ciclo de implementar → testar → validar → documentar, abertura de Pull Request e remoção da branch após o merge, evitando trabalho direto na <span class="note">main</span>.</p>
+
+<h3>4.3 Desafios Superados</h3>
+<p>Os principais obstáculos foram de <strong>negócio (domínio)</strong> mais do que puramente técnicos:</p>
+<ul>
+  <li><strong>Entender o domínio das atléticas (Atletiza):</strong> o maior desafio foi modelar corretamente o funcionamento real de uma atlética. Foi preciso traduzir em software as regras de <strong>comunidades</strong> e de <strong>administração de atléticas</strong> — modalidades, diferença entre entrada livre e seletiva, eventos públicos x privados, fluxos de aprovação/rejeição e listas de presença.</li>
+  <li><strong>Problemas de comunicação e administração:</strong> a própria dor que o produto resolve foi também o desafio de design — estruturar uma interface que organizasse informação dispersa e fluxos administrativos de forma intuitiva, sem sobrecarregar o usuário.</li>
+</ul>
+<p><strong>Como solucionamos:</strong> optamos por um <strong>MVP honesto e navegável</strong>. Em vez de tentar integrar tudo ao backend em 48 horas (inviável), priorizamos um produto completo na navegação e na experiência, com as regras de negócio implementadas e testadas e o que ainda é simulado claramente identificado. Isso permitiu entregar algo coeso, demonstrável e evolutivo dentro da restrição de tempo.</p>
+
+<h3>4.4 Autoavaliação</h3>
+<p>O grupo avalia o resultado final de forma <strong>positiva</strong>. Entregamos um MVP navegável de ponta a ponta, com identidade visual consistente, fluxos lógicos de navegação e as regras de negócio centrais das atléticas implementadas e cobertas por testes. O login está realmente integrado ao backend, e todas as telas planejadas — home, agenda, eventos, modalidades, links, vitrine, carteirinha, mural e painel da diretoria — ficaram prontas e funcionais para a demonstração.</p>
+<p>Reconhecemos com transparência as limitações do ciclo: boa parte do conteúdo ainda é alimentada por mocks e não há, nesta versão, recuperação automática de sessão, checkout/pagamentos ou check-in. Ainda assim, o produto cumpriu o objetivo da restrição de 48 horas: não é uma ficção visual, e sim uma base <strong>real, viável e evolutiva</strong>. Com mais tempo de desenvolvimento, o caminho para torná-lo efetivamente utilizável já está estruturado.</p>
+
+<!-- ===================== 5. VISÃO FUTURA ===================== -->
+<h2>5. Visão Futura</h2>
+<p>Próximos passos planejados para evolução do produto:</p>
+<ul>
+  <li>restauração automática de sessão autenticada;</li>
+  <li>API completa integrada ao frontend e permissões persistidas;</li>
+  <li>inscrições reais em modalidades e aprovação real de seletivas;</li>
+  <li>integração com WhatsApp/Instagram;</li>
+  <li>pagamentos externos e relatórios da diretoria;</li>
+  <li>suporte multiatléticas e deploy em produção.</li>
+</ul>
+
+<div class="footer">
+  Relatório referente à entrega técnica do Hackathon — projeto ATLETIZA
+</div>
+
+</div>
+</body>
+</html>
