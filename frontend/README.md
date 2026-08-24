@@ -21,7 +21,9 @@ O login e demonstrativo e roda somente com estado local:
 - `diretoria@exemple.com`
 - `admin@exemple.com`
 
-Senha visual sugerida: `Atletiza@2026`.
+Defina `VITE_DEMO_PASSWORD` no seu `.env` para que os atalhos de conta demo
+preencham a senha sozinhos. Sem essa variavel os atalhos preenchem so o email
+e a tela nao exibe senha nenhuma.
 
 ## Estrutura
 

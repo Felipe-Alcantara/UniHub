@@ -50,15 +50,26 @@ backend/
 
 ## Dados demo
 
-As migracoes gravam as contas ATLETIZA usadas para determinar o ambiente no login:
+As migracoes podem gravar as contas ATLETIZA usadas para determinar o ambiente no
+login, mas **nao fazem isso por padrao**. A semeadura exige as duas variaveis:
 
-| Participante / Ambiente | Email | Matrícula | Senha |
-| --- | --- | --- | --- |
-| Gabriel Fernandes | `gabriel@atletiza.com` | `202612345` (mock existente, a confirmar) | `Atletiza@2026` |
-| Júlia de Oliveira Martins | `julia@atletiza.com` | `2025101351` | `Atletiza@2026` |
-| André Gustavo Melo da Silva | `andre@atletiza.com` | `2023121370` | `Atletiza@2026` |
-| Luiz Filipe Silva Rocha | `luiz.filipe@atletiza.com` | `2025101510` | `Atletiza@2026` |
-| Diretoria | `diretoria@exemple.com` | - | `Atletiza@2026` |
-| Admin | `admin@exemple.com` | - | `Atletiza@2026` |
+```bash
+export SEED_DEMO_ACCOUNTS=1
+export UNIHUB_DEMO_PASSWORD='escolha-uma-senha'
+python manage.py migrate
+```
+
+Sem `SEED_DEMO_ACCOUNTS` ligado, ou sem `UNIHUB_DEMO_PASSWORD` definido, nenhuma
+conta e criada — inclusive a de perfil `admin`. A senha nunca fica no repositorio:
+quem semeia escolhe a sua e ela vale so naquele ambiente.
+
+| Participante / Ambiente | Email | Matrícula |
+| --- | --- | --- |
+| Gabriel Fernandes | `gabriel@atletiza.com` | `202612345` (mock existente, a confirmar) |
+| Júlia de Oliveira Martins | `julia@atletiza.com` | `2025101351` |
+| André Gustavo Melo da Silva | `andre@atletiza.com` | `2023121370` |
+| Luiz Filipe Silva Rocha | `luiz.filipe@atletiza.com` | `2025101510` |
+| Diretoria | `diretoria@exemple.com` | - |
+| Admin | `admin@exemple.com` | - |
 
 Use `python manage.py seed_demo` apenas para popular os registros legados adicionais da API.
