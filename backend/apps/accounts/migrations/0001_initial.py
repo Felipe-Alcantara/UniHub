@@ -3,8 +3,9 @@ from django.contrib.auth.hashers import make_password
 from django.db import migrations, models
 import django.db.models.deletion
 
+from apps.accounts import demo_seed
 
-DEMO_PASSWORD = 'Atletiza@2026'
+
 DEMO_ACCOUNTS = [
     ('aluno@exemple.com', 'Gabriel', 'Fernandes', 'student', 'Aluno / Atleta'),
     ('diretoria@exemple.com', 'Ana', 'Souza', 'board', 'Diretora de Esportes'),
@@ -13,6 +14,9 @@ DEMO_ACCOUNTS = [
 
 
 def seed_demo_accounts(apps, schema_editor):
+    if not demo_seed.should_seed():
+        return
+
     User = apps.get_model('auth', 'User')
     AccessProfile = apps.get_model('accounts', 'AccessProfile')
 
@@ -23,7 +27,7 @@ def seed_demo_accounts(apps, schema_editor):
                 'email': email,
                 'first_name': first_name,
                 'last_name': last_name,
-                'password': make_password(DEMO_PASSWORD),
+                'password': make_password(demo_seed.demo_password()),
                 'is_active': True,
             },
         )
