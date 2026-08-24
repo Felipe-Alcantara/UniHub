@@ -8,7 +8,11 @@ const OUT = join(__dirname, '..', 'docs', 'screenshots')
 mkdirSync(OUT, { recursive: true })
 
 const BASE = 'http://localhost:3000/UniHub'
-const PASSWORD = 'Atletiza@2026'
+const PASSWORD = process.env.UNIHUB_DEMO_PASSWORD ?? ''
+if (!PASSWORD) {
+  console.error('Defina UNIHUB_DEMO_PASSWORD com a senha das contas demo deste ambiente.')
+  process.exit(1)
+}
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms))
 
 async function login(page, email) {
