@@ -6,22 +6,13 @@ import Button from '../components/ui/button'
 import Input from '../components/ui/input'
 import AtletizaLogo from '../components/brand/atletiza-logo'
 import { useDemo } from '../context/demo-context'
+import { apiPost } from '../utils/api'
 
 const visibleDemoAccounts = [
-  { email: 'aluno@atletiza.com', environment: 'Aluno', profile: 'student', name: 'Gabriel Fernandes', registration: '202612345' },
-  { email: 'diretoria@exemple.com', environment: 'Diretoria', profile: 'board', name: 'Ana Souza', registration: 'DIR-002' },
-  { email: 'admin@exemple.com', environment: 'Admin', profile: 'admin', name: 'Felipe Admin', registration: 'DEV-001' },
+  { email: 'gabriel@atletiza.com', environment: 'Aluno' },
+  { email: 'diretoria@exemple.com', environment: 'Diretoria' },
+  { email: 'admin@exemple.com', environment: 'Admin' },
 ]
-
-const studentDemoAccounts = [
-  visibleDemoAccounts[0],
-  { email: 'gabriel@atletiza.com', environment: 'Aluno', profile: 'student', name: 'Gabriel Fernandes', registration: '202612345' },
-  { email: 'andre@atletiza.com', environment: 'Aluno', profile: 'student', name: 'André Gustavo Melo da Silva', registration: '2023121370' },
-  { email: 'julia@atletiza.com', environment: 'Aluno', profile: 'student', name: 'Júlia de Oliveira Martins', registration: '2025101351' },
-  { email: 'luiz.filipe@atletiza.com', environment: 'Aluno', profile: 'student', name: 'Luiz Filipe Silva Rocha', registration: '2025101510' },
-]
-
-const loginAccounts = [...studentDemoAccounts, ...visibleDemoAccounts.slice(1)]
 
 function LoginPage() {
   const [email, setEmail] = useState('')
@@ -38,23 +29,18 @@ function LoginPage() {
     event.preventDefault()
     setError('')
     setInfo('')
-    const account = loginAccounts.find((item) => item.email.toLowerCase() === email.trim().toLowerCase())
-
-    if (!account || !password.trim()) {
-      setError('Conta de acesso não encontrada.')
-      return
-    }
-
     setIsSubmitting(true)
-    setAuthenticatedIdentity({
-      email: account.email,
-      name: account.name,
-      profile: account.profile,
-      registration: account.registration,
-      role_label: account.environment,
-    })
-    setActiveProfile(account.profile)
-    navigate('/')
+
+    try {
+      const user = await apiPost('/auth/login/', { email: email.trim(), password })
+      setAuthenticatedIdentity(user)
+      setActiveProfile(user.profile)
+      navigate('/')
+    } catch (requestError) {
+      setError(requestError.message)
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   return (
