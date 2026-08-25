@@ -179,3 +179,6 @@ Este arquivo registra a memoria tecnica do projeto para continuidade entre sesso
 - [2026-05-24] Rotina Git obrigatoria registrada:
   - Antes de iniciar task: `git fetch origin` -> `git pull origin main` -> merge da `main` na branch de trabalho.
   - Antes de commit/entrega: `git fetch origin` -> `git pull origin main` -> validar testes -> commit convencional -> `git push` -> abrir PR para `main`.
+
+## Correcoes de seguranca
+- [2026-08-25] O login do frontend voltou a usar `POST /api/v1/auth/login/`; senha incorreta nao autentica localmente, e identidade/perfil passam a vir exclusivamente da resposta validada pelo backend. O atalho de aluno foi alinhado a conta persistida `gabriel@atletiza.com`.

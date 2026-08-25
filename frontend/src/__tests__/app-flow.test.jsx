@@ -1,5 +1,5 @@
 import { cleanup, fireEvent, render, screen, waitFor } from '@testing-library/react'
-import { afterEach, beforeEach, describe, expect, it } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import App from '../App'
 import { DemoProvider } from '../context/demo-context'
 
@@ -16,11 +16,25 @@ function renderAppAt(pathname) {
 describe('authenticated landing flow', () => {
   afterEach(() => {
     cleanup()
+    vi.unstubAllGlobals()
   })
 
   beforeEach(() => {
     window.history.pushState({}, '', '/')
     localStorage.clear()
+    vi.stubGlobal(
+      'fetch',
+      vi.fn().mockResolvedValue({
+        ok: true,
+        json: async () => ({
+          profile: 'student',
+          email: 'gabriel@atletiza.com',
+          name: 'Gabriel Fernandes',
+          registration: '202612345',
+          role_label: 'Aluno / Atleta',
+        }),
+      }),
+    )
   })
 
   it('blocks private routes behind the login endpoint', async () => {
@@ -30,10 +44,10 @@ describe('authenticated landing flow', () => {
     await waitFor(() => expect(window.location.pathname).toBe('/login'))
   })
 
-  it('opens the authenticated landing after demo login', async () => {
+  it('opens the authenticated landing only after backend login', async () => {
     renderAppAt('/login')
 
-    fireEvent.change(screen.getByLabelText('E-mail'), { target: { value: 'aluno@atletiza.com' } })
+    fireEvent.change(screen.getByLabelText('E-mail'), { target: { value: 'gabriel@atletiza.com' } })
     fireEvent.change(screen.getByLabelText('Senha'), { target: { value: 'Atletiza@2026' } })
     fireEvent.click(screen.getByRole('button', { name: 'Entrar' }))
 
@@ -43,9 +57,26 @@ describe('authenticated landing flow', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Usar tema branco' }))
     expect(screen.getByRole('button', { name: 'Usar tema branco' })).toHaveAttribute('aria-pressed', 'true')
     expect(window.location.pathname).toBe('/')
+    expect(fetch).toHaveBeenCalledWith(
+      '/api/v1/auth/login/',
+      expect.objectContaining({
+        method: 'POST',
+        body: JSON.stringify({ email: 'gabriel@atletiza.com', password: 'Atletiza@2026' }),
+      }),
+    )
   })
 
   it('shows the authenticated participant identity and registration', async () => {
+    fetch.mockResolvedValueOnce({
+      ok: true,
+      json: async () => ({
+        profile: 'student',
+        email: 'andre@atletiza.com',
+        name: 'André Gustavo Melo da Silva',
+        registration: '2023121370',
+        role_label: 'Aluno / Atleta',
+      }),
+    })
     renderAppAt('/login')
 
     fireEvent.change(screen.getByLabelText('E-mail'), { target: { value: 'andre@atletiza.com' } })
@@ -75,7 +106,7 @@ describe('authenticated landing flow', () => {
   it('fills a director credential shortcut without changing screens', async () => {
     renderAppAt('/login')
 
-    expect(screen.getByRole('button', { name: /aluno@atletiza.com/ })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: /gabriel@atletiza.com/ })).toBeInTheDocument()
     fireEvent.click(screen.getByRole('button', { name: /diretoria@exemple.com/ }))
 
     expect(screen.getByLabelText('E-mail')).toHaveValue('diretoria@exemple.com')
@@ -98,13 +129,19 @@ describe('authenticated landing flow', () => {
     expect(screen.getByRole('status')).toHaveTextContent('Recuperação de senha indisponível nesta demonstração.')
   })
 
-  it('shows a useful message for an unknown demo account', async () => {
+  it('rejects an incorrect password without authenticating locally', async () => {
+    fetch.mockResolvedValueOnce({
+      ok: false,
+      status: 400,
+      json: async () => ({ non_field_errors: ['E-mail ou senha inválidos.'] }),
+    })
     renderAppAt('/login')
 
-    fireEvent.change(screen.getByLabelText('E-mail'), { target: { value: 'teste@atletiza.com' } })
-    fireEvent.change(screen.getByLabelText('Senha'), { target: { value: 'Atletiza@2026' } })
+    fireEvent.change(screen.getByLabelText('E-mail'), { target: { value: 'admin@exemple.com' } })
+    fireEvent.change(screen.getByLabelText('Senha'), { target: { value: 'senha-incorreta' } })
     fireEvent.click(screen.getByRole('button', { name: 'Entrar' }))
 
-    expect(await screen.findByText('Conta de acesso não encontrada.')).toBeInTheDocument()
+    expect(await screen.findByText('E-mail ou senha inválidos.')).toBeInTheDocument()
+    expect(window.location.pathname).toBe('/login')
   })
 })
