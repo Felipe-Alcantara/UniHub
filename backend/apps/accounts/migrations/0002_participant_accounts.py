@@ -1,8 +1,9 @@
 from django.contrib.auth.hashers import make_password
 from django.db import migrations, models
 
+from apps.accounts import demo_seed
 
-DEMO_PASSWORD = 'Atletiza@2026'
+
 PARTICIPANT_ACCOUNTS = [
     ('gabriel@atletiza.com', 'Gabriel', 'Fernandes', '202612345'),
     ('julia@atletiza.com', 'Júlia', 'de Oliveira Martins', '2025101351'),
@@ -12,6 +13,9 @@ PARTICIPANT_ACCOUNTS = [
 
 
 def seed_participant_accounts(apps, schema_editor):
+    if not demo_seed.should_seed():
+        return
+
     User = apps.get_model('auth', 'User')
     AccessProfile = apps.get_model('accounts', 'AccessProfile')
 
@@ -22,7 +26,7 @@ def seed_participant_accounts(apps, schema_editor):
                 'email': email,
                 'first_name': first_name,
                 'last_name': last_name,
-                'password': make_password(DEMO_PASSWORD),
+                'password': make_password(demo_seed.demo_password()),
                 'is_active': True,
             },
         )

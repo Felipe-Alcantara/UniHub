@@ -3,6 +3,10 @@ import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 import App from '../App'
 import { DemoProvider } from '../context/demo-context'
 
+// A senha demo real vem de VITE_DEMO_PASSWORD; aqui basta um valor qualquer,
+// porque a tela so exige que o campo nao esteja vazio.
+const TYPED_PASSWORD = 'senha-de-teste'
+
 function renderAppAt(pathname) {
   window.history.pushState({}, '', pathname)
 
@@ -34,7 +38,7 @@ describe('authenticated landing flow', () => {
     renderAppAt('/login')
 
     fireEvent.change(screen.getByLabelText('E-mail'), { target: { value: 'aluno@atletiza.com' } })
-    fireEvent.change(screen.getByLabelText('Senha'), { target: { value: 'Atletiza@2026' } })
+    fireEvent.change(screen.getByLabelText('Senha'), { target: { value: TYPED_PASSWORD } })
     fireEvent.click(screen.getByRole('button', { name: 'Entrar' }))
 
     expect(await screen.findByRole('heading', { name: /Tudo da Atlética Godzilla no seu ritmo/ })).toBeInTheDocument()
@@ -49,7 +53,7 @@ describe('authenticated landing flow', () => {
     renderAppAt('/login')
 
     fireEvent.change(screen.getByLabelText('E-mail'), { target: { value: 'andre@atletiza.com' } })
-    fireEvent.change(screen.getByLabelText('Senha'), { target: { value: 'Atletiza@2026' } })
+    fireEvent.change(screen.getByLabelText('Senha'), { target: { value: TYPED_PASSWORD } })
     fireEvent.click(screen.getByRole('button', { name: 'Entrar' }))
 
     expect(await screen.findByText('André Gustavo Melo da Silva')).toBeInTheDocument()
@@ -61,7 +65,7 @@ describe('authenticated landing flow', () => {
     renderAppAt('/login')
 
     fireEvent.change(screen.getByLabelText('E-mail'), { target: { value: 'aluno@atletiza.com' } })
-    fireEvent.change(screen.getByLabelText('Senha'), { target: { value: 'Atletiza@2026' } })
+    fireEvent.change(screen.getByLabelText('Senha'), { target: { value: TYPED_PASSWORD } })
     fireEvent.click(screen.getByRole('button', { name: 'Entrar' }))
     const hourLinks = await screen.findAllByRole('link', { name: 'Horas' })
     fireEvent.click(hourLinks[0])
@@ -79,7 +83,8 @@ describe('authenticated landing flow', () => {
     fireEvent.click(screen.getByRole('button', { name: /diretoria@exemple.com/ }))
 
     expect(screen.getByLabelText('E-mail')).toHaveValue('diretoria@exemple.com')
-    expect(screen.getByLabelText('Senha')).toHaveValue('Atletiza@2026')
+    // Sem VITE_DEMO_PASSWORD definida, o atalho preenche o email e deixa a senha vazia.
+    expect(screen.getByLabelText('Senha')).toHaveValue('')
   })
 
   it('toggles password visibility and shows layout recovery feedback', async () => {
@@ -102,7 +107,7 @@ describe('authenticated landing flow', () => {
     renderAppAt('/login')
 
     fireEvent.change(screen.getByLabelText('E-mail'), { target: { value: 'teste@atletiza.com' } })
-    fireEvent.change(screen.getByLabelText('Senha'), { target: { value: 'Atletiza@2026' } })
+    fireEvent.change(screen.getByLabelText('Senha'), { target: { value: TYPED_PASSWORD } })
     fireEvent.click(screen.getByRole('button', { name: 'Entrar' }))
 
     expect(await screen.findByText('Conta de acesso não encontrada.')).toBeInTheDocument()

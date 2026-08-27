@@ -217,11 +217,15 @@ Persistência apenas em estado local.
 
 # Contas de demonstração
 
-Senha padrão para todas as contas:
+A senha não é publicada aqui. Cada ambiente define a sua ao semear as contas:
 
-```txt
-Atletiza@2026
+```bash
+export SEED_DEMO_ACCOUNTS=1
+export UNIHUB_DEMO_PASSWORD='escolha-uma-senha'
+python manage.py migrate
 ```
+
+Sem as duas variáveis nenhuma conta é criada, nem a de perfil `admin`.
 
 | Participante / Ambiente | E-mail | Matrícula |
 |---|---|---|

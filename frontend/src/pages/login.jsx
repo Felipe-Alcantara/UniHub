@@ -7,6 +7,8 @@ import Input from '../components/ui/input'
 import AtletizaLogo from '../components/brand/atletiza-logo'
 import { useDemo } from '../context/demo-context'
 
+const demoPassword = import.meta.env.VITE_DEMO_PASSWORD ?? ''
+
 const visibleDemoAccounts = [
   { email: 'aluno@atletiza.com', environment: 'Aluno', profile: 'student', name: 'Gabriel Fernandes', registration: '202612345' },
   { email: 'diretoria@exemple.com', environment: 'Diretoria', profile: 'board', name: 'Ana Souza', registration: 'DIR-002' },
@@ -178,7 +180,7 @@ function LoginPage() {
                   type="button"
                   onClick={() => {
                     setEmail(account.email)
-                    setPassword('Atletiza@2026')
+                    setPassword(demoPassword)
                     setError('')
                     setInfo('')
                   }}
@@ -189,9 +191,11 @@ function LoginPage() {
                 </button>
               ))}
             </div>
-            <p className="mt-3 text-xs text-[#7D8593]">
-              Senha demo para todas as contas: <span className="font-medium text-[#C8CDD6]">Atletiza@2026</span>
-            </p>
+            {demoPassword ? (
+              <p className="mt-3 text-xs text-[#7D8593]">
+                Senha demo para todas as contas: <span className="font-medium text-[#C8CDD6]">{demoPassword}</span>
+              </p>
+            ) : null}
           </div>
         </section>
         </div>

@@ -69,7 +69,7 @@ Este arquivo registra a memoria tecnica do projeto para continuidade entre sesso
 - [2026-05-24] `npm run build` (frontend): passou apos o redesenho do login.
 - [2026-05-24] A pedido do stakeholder, o seletor de perfil foi substituido por tela padrao de email e senha com animacao discreta.
 - [2026-05-24] Login integrado a `POST /api/v1/auth/login/`; a resposta do backend determina o ambiente (`student`, `board` ou `admin`).
-- [2026-05-24] Contas persistidas via migracao Django/SQLite: `aluno@exemple.com`, `diretoria@exemple.com`, `admin@exemple.com`; senha demo comum `Atletiza@2026`.
+- [2026-05-24] Contas persistidas via migracao Django/SQLite: `aluno@exemple.com`, `diretoria@exemple.com`, `admin@exemple.com`; senha demo comum, definida no codigo (revertido em 2026-08-24).
 - [2026-05-24] A integracao autentica o acesso inicial e cria sessao Django; restauracao automatica da sessao no frontend apos refresh permanece evolucao futura.
 - [2026-05-24] `python manage.py migrate` aplicado no SQLite local; consulta ORM confirmou as tres contas e seus ambientes persistidos.
 - [2026-05-24] `.venv\Scripts\python.exe manage.py test` (backend): passou (4 testes), incluindo os tres emails/ambientes e rejeicao de senha invalida.
@@ -136,7 +136,7 @@ Este arquivo registra a memoria tecnica do projeto para continuidade entre sesso
 - [2026-05-24] Tema branco foi refinado nos componentes base: cards, botões, badges e textos de estado ganharam estilos específicos; o overlay escuro dos cards bloqueados de modalidades foi removido para evitar barra preta no modo claro.
 - [2026-05-24] Agenda ganhou área útil mais larga em desktop e filtros compactados em selects nativos para tipo/visibilidade e modalidade, substituindo a faixa horizontal de chips.
 - [2026-05-24] Revisao de layout: o frontend autenticado foi ajustado para demonstracao local sem dependencia de backend no login, sem fluxos de confirmacao de presenca e sem aprovacoes manuais. Entradas de modalidades agora ficam liberadas/aprovadas visualmente, eventos mostram participacao como informacao de layout e o painel da diretoria exibe registros prontos em vez de acoes pendentes.
-- [2026-05-24] O login voltou a usar contas demo locais, exibindo `aluno@atletiza.com`, `diretoria@exemple.com` e `admin@exemple.com`; os aliases pessoais `gabriel@atletiza.com`, `julia@atletiza.com`, `andre@atletiza.com` e `luiz.filipe@atletiza.com` tambem entram localmente com a senha visual `Atletiza@2026`, sem chamada a API no frontend.
+- [2026-05-24] O login voltou a usar contas demo locais, exibindo `aluno@atletiza.com`, `diretoria@exemple.com` e `admin@exemple.com`; os aliases pessoais `gabriel@atletiza.com`, `julia@atletiza.com`, `andre@atletiza.com` e `luiz.filipe@atletiza.com` tambem entram localmente com a senha visual definida em `VITE_DEMO_PASSWORD`, sem chamada a API no frontend.
 - [2026-05-24] `npm test` (frontend): passou (15 testes) apos revisao para layout local.
 - [2026-05-24] `npm run build` (frontend): passou apos revisao para layout local.
 - [2026-05-24] O hub ganhou a aba local de horas complementares em `/hours`; cada evento mockado informa carga entre 5 e 20 horas, exibida na agenda, no detalhe e no resumo de oportunidades elegiveis.
@@ -179,3 +179,4 @@ Este arquivo registra a memoria tecnica do projeto para continuidade entre sesso
 - [2026-05-24] Rotina Git obrigatoria registrada:
   - Antes de iniciar task: `git fetch origin` -> `git pull origin main` -> merge da `main` na branch de trabalho.
   - Antes de commit/entrega: `git fetch origin` -> `git pull origin main` -> validar testes -> commit convencional -> `git push` -> abrir PR para `main`.
+- [2026-08-24] A senha demo saiu do repositorio: as migrations passam a ler `UNIHUB_DEMO_PASSWORD` e so semeiam contas com `SEED_DEMO_ACCOUNTS` ligado. O valor publicado antes deve ser considerado comprometido e rotacionado em qualquer ambiente que ja tenha aplicado as migrations.
